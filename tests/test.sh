@@ -17,3 +17,24 @@ if [ $RESULT -ne $SUCCESS ]; then
     echo "Failing Test #2"
 fi
 
+# Run a broken one, expect FAILURE
+../metadata-json-lint.rb metadata-noname.json >/dev/null 2>&1
+RESULT=$?
+if [ $RESULT -ne $FAILURE ]; then
+    echo "Failing Test #3"
+fi
+
+# Run a broken one, expect FAILURE
+../metadata-json-lint.rb metadata-types.json >/dev/null 2>&1
+RESULT=$?
+if [ $RESULT -ne $FAILURE ]; then
+    echo "Failing Test #4"
+fi
+
+
+# Run a broken one, expect FAILURE
+../metadata-json-lint.rb metadata-multiple_problems.json >/dev/null 2>&1
+RESULT=$?
+if [ $RESULT -ne $FAILURE ]; then
+    echo "Failing Test #5"
+fi
