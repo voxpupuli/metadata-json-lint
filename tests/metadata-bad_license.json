@@ -3,7 +3,7 @@
   "version": "3.4.1",
   "author": "Inkling/Puppet Labs",
   "summary": "PostgreSQL defined resource types",
-  "license": "Apache-2.0",
+  "license": "Unknown-1.0",
   "source": "git://github.com/puppetlabs/puppet-postgresql.git",
   "project_page": "https://github.com/puppetlabs/puppet-postgresql",
   "issues_url": "https://github.com/puppetlabs/puppet-postgresql/issues",
