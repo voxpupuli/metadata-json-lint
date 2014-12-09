@@ -10,5 +10,7 @@ Gem::Specification.new do |s|
   s.executables << 'metadata-json-lint'
   s.homepage    =
     'http://github.com/nibalizer/metadata-json-lint.rb'
-  s.license       = 'Apache 2'
+  s.license     = 'Apache-2.0'
+
+  s.add_dependency 'spdx-licenses', '~> 1.0'
 end
