@@ -9,6 +9,6 @@ Gem::Specification.new do |s|
   s.files       = ["bin/metadata-json-lint", "lib/metadata_json_lint.rb"]
   s.executables << 'metadata-json-lint'
   s.homepage    =
-    'http://github.com/nibalizer/metadata-json-lint.rb'
+    'http://github.com/nibalizer/metadata-json-lint'
   s.license       = 'Apache 2'
 end
