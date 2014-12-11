@@ -24,7 +24,15 @@ module MetadataJsonLint
       end
     end
 
-
+    deps = parsed['dependencies']
+    dep_names = []
+    deps.each do |dep|
+      if dep_names.include?(dep['name'])
+        puts "Error: duplicate dependencies on #{dep['name']}"
+        error_state = true
+      end
+      dep_names << dep['name']
+    end
 
     # Deprecated fields
     # From: https://docs.puppetlabs.com/puppet/latest/reference/modules_publishing.html#write-a-metadatajson-file
