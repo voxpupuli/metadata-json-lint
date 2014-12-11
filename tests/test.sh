@@ -38,3 +38,10 @@ RESULT=$?
 if [ $RESULT -ne $FAILURE ]; then
     echo "Failing Test #5"
 fi
+
+# Run a broken one, expect FAILURE
+../bin/metadata-json-lint metadata-duplicate-dep.json >/dev/null 2>&1
+RESULT=$?
+if [ $RESULT -ne $FAILURE ]; then
+    echo "Failing Test #6"
+fi
