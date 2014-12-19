@@ -7,8 +7,8 @@ module MetadataJsonLint
 
     begin
       parsed = JSON.parse(f)
-    rescue
-      abort("Error: Unable to parse json. There is a syntax error somewhere.")
+    rescue Exception => e
+      abort("Error: Unable to parse metadata.json: #{e.exception}")
     end
 
     # Fields required to be in metadata.json
