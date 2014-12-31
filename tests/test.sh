@@ -31,7 +31,6 @@ if [ $RESULT -ne $FAILURE ]; then
     echo "Failing Test #4"
 fi
 
-
 # Run a broken one, expect FAILURE
 ../bin/metadata-json-lint metadata-multiple_problems.json >/dev/null 2>&1
 RESULT=$?
@@ -44,4 +43,33 @@ fi
 RESULT=$?
 if [ $RESULT -ne $FAILURE ]; then
     echo "Failing Test #6"
+fi
+
+# Run a broken one, expect FAILURE
+../bin/metadata-json-lint metadata-bad_license.json >/dev/null 2>&1
+RESULT=$?
+if [ $RESULT -ne $FAILURE ]; then
+    echo "Failing Test #7"
+fi
+
+# Run a broken one, expect SUCCESS
+../bin/metadata-json-lint --no-fail-on-warnings metadata-duplicate-dep.json >/dev/null 2>&1
+RESULT=$?
+if [ $RESULT -ne $SUCCESS ]; then
+    echo "Failing Test #8"
+fi
+
+# Run a broken one, expect SUCCESS
+../bin/metadata-json-lint --no-strict-license metadata-bad_license.json >/dev/null 2>&1
+RESULT=$?
+if [ $RESULT -ne $SUCCESS ]; then
+    echo "Failing Test #9"
+fi
+
+# Run a broken one, expect SUCCESS
+# Testing on no file given
+../bin/metadata-json-lint >/dev/null 2>&1
+RESULT=$?
+if [ $RESULT -ne $FAILURE ]; then
+    echo "Failing Test #10"
 fi

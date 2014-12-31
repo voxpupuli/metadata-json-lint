@@ -1,8 +1,37 @@
-#!/usr/bin/env ruby
+require 'json'
+require 'spdx-licenses'
+require 'optparse'
 
 module MetadataJsonLint
-  def MetadataJsonLint.parse(metadata)
+  def run
+    options = {
+      :fail_on_warnings => true,
+      :strict_license   => true
+    }
 
+    OptionParser.new do |opts|
+      opts.banner = "Usage: metadata-json-lint [options] metadata.json"
+
+      opts.on("--[no-]strict-license", "Don't fail on strict license check") do |v|
+        options[:strict_license] = v
+      end
+
+      opts.on("--[no-]fail-on-warnings", "Fail on any warnings") do |v|
+        options[:fail_on_warnings] = v
+      end
+    end.parse!
+
+    @options = options
+
+    if ARGV[0].nil?
+      abort("Error: Must provide a metadata.json file to parse")
+    end
+
+    MetadataJsonLint.parse(ARGV.first)
+  end
+  module_function :run
+
+  def parse(metadata)
     f = File.read(metadata)
 
     begin
@@ -46,10 +75,22 @@ module MetadataJsonLint
       end
     end
 
+    # Shoulds/recommendations
+    # From: https://docs.puppetlabs.com/puppet/latest/reference/modules_publishing.html#write-a-metadatajson-file
+
+    if !parsed['license'].nil? && !SpdxLicenses.exist?(parsed['license'])
+      puts "Warning: License identifier #{parsed['license']} is not in the SPDX list: http://spdx.org/licenses/"
+      error_state = true if @options[:strict_license]
+    end
 
     if error_state
-      abort("Errors found in metadata.json")
+      if @options[:fail_on_warnings] == true
+        abort("Errors found in #{metadata}")
+      else
+        puts "Errors found in #{metadata}"
+      end
     end
 
   end
+  module_function :parse
 end
