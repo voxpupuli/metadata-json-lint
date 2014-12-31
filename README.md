@@ -35,4 +35,15 @@ end
 
 
 
+contributors
+------------
+
+A Big thank you to the code contributors:
+
+Richard Pijnenburg
+Dominic Cleal
+Igor Galić
+
+
+
 
