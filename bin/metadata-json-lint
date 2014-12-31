@@ -1,16 +1,8 @@
 #!/usr/bin/env ruby
 
-
 lib = File.expand_path('../../lib', __FILE__)
 $:.unshift(lib) unless $:.include?(lib)
 
-require "json"
 require "metadata_json_lint"
 
-if ARGV[0].nil?
-  abort("Error: Must provide a metadata.json file to parse")
-end
-
-metadata = ARGV[0]
-
-MetadataJsonLint.parse(metadata)
+MetadataJsonLint.run
