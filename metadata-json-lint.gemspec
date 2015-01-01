@@ -6,7 +6,7 @@ Gem::Specification.new do |s|
   s.description = "Utility to verify Puppet metadata.json files"
   s.authors     = ["Spencer Krum", "HP Development Corporation LP"]
   s.email       = 'nibz@spencerkrum.com'
-  s.files       = ["bin/metadata-json-lint", "lib/metadata_json_lint.rb"]
+  s.files       = ["bin/metadata-json-lint", "lib/metadata_json_lint.rb", "lib/metadata-json-lint/rake_task.rb"]
   s.executables << 'metadata-json-lint'
   s.homepage    = 'http://github.com/nibalizer/metadata-json-lint'
   s.license     = 'Apache-2.0'
