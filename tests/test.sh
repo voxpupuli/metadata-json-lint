@@ -11,7 +11,7 @@ if [ $RESULT -ne $FAILURE ]; then
 fi
 
 # Run a perfect one, expect SUCCESS
-../bin/metadata-json-lint metadata-perfect.json
+../bin/metadata-json-lint metadata-perfect.json >/dev/null 2>&1
 RESULT=$?
 if [ $RESULT -ne $SUCCESS ]; then
     echo "Failing Test #2"
@@ -73,3 +73,11 @@ RESULT=$?
 if [ $RESULT -ne $FAILURE ]; then
     echo "Failing Test #10"
 fi
+
+# Run a broken one, expect FAILURE
+../bin/metadata-json-lint --strict-dependency metadata-openenddep.json >/dev/null 2>&1
+RESULT=$?
+if [ $RESULT -ne $FAILURE ]; then
+    echo "Failing Test #11"
+fi
+
