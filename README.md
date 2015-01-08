@@ -35,6 +35,18 @@ end
 
 
 
+options
+-------
+
+
+```
+--no-fail-on-warnings
+--strict-dependency
+--no-strict-license
+```
+
+
+
 contributors
 ------------
 
