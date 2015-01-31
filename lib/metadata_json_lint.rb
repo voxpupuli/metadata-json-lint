@@ -1,15 +1,12 @@
 require 'json'
 require 'spdx-licenses'
 require 'optparse'
-require 'metadata-json-lint/semantic/version'
-require 'metadata-json-lint/semantic/version_range'
 
 module MetadataJsonLint
   def run
     options = {
-      :fail_on_warnings  => true,
-      :strict_license    => true,
-      :strict_dependency => false
+      :fail_on_warnings => true,
+      :strict_license   => true
     }
 
     OptionParser.new do |opts|
@@ -17,10 +14,6 @@ module MetadataJsonLint
 
       opts.on("--[no-]strict-license", "Don't fail on strict license check") do |v|
         options[:strict_license] = v
-      end
-
-      opts.on("--[no-]strict-dependency", "Strict dependency version checking") do |v|
-        options[:strict_dependency] = v
       end
 
       opts.on("--[no-]fail-on-warnings", "Fail on any warnings") do |v|
@@ -68,15 +61,6 @@ module MetadataJsonLint
         error_state = true
       end
       dep_names << dep['name']
-    end
-
-    # Check for open endend versions in dependencies.
-    # https://docs.puppetlabs.com/puppet/latest/reference/modules_publishing.html#dependencies-in-metadatajson
-    deps.each do |dep|
-      if Semantic::VersionRange.parse(dep['version_requirement']).open_end?
-        puts "Warning: Dependency #{dep['name']} has an open ended dependency version requirement #{dep['version_requirement']}"
-        error_state = true if @options[:strict_dependency]
-      end
     end
 
     # Deprecated fields
