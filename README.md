@@ -1,61 +1,48 @@
-metadata-json-linter
---------------------
+# metadata-json-linter
 
-Simple tool to validate and lint metadata.json files in Puppet modules.
+Simple tool to validate and lint `metadata.json` files in Puppet modules as
+recommended in Puppet Forge style guidelines from [Puppet forge metadata style
+quide](https://docs.puppetlabs.com/puppet/latest/reference/modules_publishing.html#write-a-metadatajson-file)
 
-
-
-install
--------
+## Installation
 
 ```shell
 gem install metadata-json-lint
 ```
 
+## Usage
 
+### By hand
 
-usage
------
+In your shell, with the `metadata-json-lint` and the path of your `metadata.json` file
 
 ```shell
 metadata-json-lint /path/too/metadata.json
 ```
 
+### Rake task
 
-
-rake
-----
-
+You can also integrate `metadata.json` lint in you tests, using the rake tast.
+You can add `require 'metadata-json-lint/rake_task'` to your Rakefile and then
+run
 
 ```ruby
-task :metadata do
-  sh "metadata-json-lint metadata.json"
-end
+rake metadata_lint
 ```
 
-
-
-options
--------
-
+### Options
 
 ```
---no-fail-on-warnings
---no-strict-license
+--[no-]strict-license        Don't fail on strict license check
+--[no-]fail-on-warnings      Fail on any warnings
 ```
 
-
-
-contributors
-------------
+## Contributors
 
 A Big thank you to the code contributors:
 
-Richard Pijnenburg
-Dominic Cleal
-Igor Galić
-Mike Arnold
-
-
-
+* Richard Pijnenburg
+* Dominic Cleal
+* Igor Galić
+* Mike Arnold
 
