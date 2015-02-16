@@ -22,6 +22,9 @@ metadata-json-lint /path/too/metadata.json
 
 ### Rake task
 
+If you are already using the puppet_spec_helper, you get metadata-json-lint
+checking for free using the 'validate' task.
+
 You can also integrate `metadata.json` lint in you tests, using the rake tast.
 You can add `require 'metadata-json-lint/rake_task'` to your Rakefile and then
 run
