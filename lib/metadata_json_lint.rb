@@ -3,12 +3,15 @@ require 'spdx-licenses'
 require 'optparse'
 
 module MetadataJsonLint
-  def run
-    options = {
+  def options
+    @options ||= {
       :fail_on_warnings => true,
       :strict_license   => true
     }
+  end
+  module_function :options
 
+  def run
     OptionParser.new do |opts|
       opts.banner = "Usage: metadata-json-lint [options] metadata.json"
 
@@ -20,8 +23,6 @@ module MetadataJsonLint
         options[:fail_on_warnings] = v
       end
     end.parse!
-
-    @options = options
 
     if ARGV[0].nil?
       abort("Error: Must provide a metadata.json file to parse")
@@ -80,11 +81,11 @@ module MetadataJsonLint
 
     if !parsed['license'].nil? && !SpdxLicenses.exist?(parsed['license'])
       puts "Warning: License identifier #{parsed['license']} is not in the SPDX list: http://spdx.org/licenses/"
-      error_state = true if @options[:strict_license]
+      error_state = true if options[:strict_license]
     end
 
     if error_state
-      if @options[:fail_on_warnings] == true
+      if options[:fail_on_warnings] == true
         abort("Errors found in #{metadata}")
       else
         puts "Errors found in #{metadata}"
