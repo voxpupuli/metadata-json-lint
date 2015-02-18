@@ -1,75 +1,79 @@
 #!/bin/bash
 
-export SUCCESS=0
-export FAILURE=1
+SUCCESS=0
+FAILURE=1
+STATUS=0
+
+fail() {
+  echo $*
+  STATUS=1
+}
+
+test() {
+  name=$1; shift
+  expect=$1; shift
+  (
+    cd $name
+    ../../bin/metadata-json-lint $* metadata.json >/dev/null 2>&1
+    RESULT=$?
+    if [ $RESULT -ne $expect ]; then
+        fail "Failing Test '${name}' (bin)"
+    fi
+    rake metadata_lint >/dev/null 2>&1
+    RESULT=$?
+    if [ $RESULT -ne $expect ]; then
+        fail "Failing Test '${name}' (rake)"
+    fi
+  )
+}
 
 # Run a broken one, expect FAILURE
-../bin/metadata-json-lint metadata-broken.json >/dev/null 2>&1
-RESULT=$?
-if [ $RESULT -ne $FAILURE ]; then
-    echo "Failing Test #1"
-fi
+test "broken" $FAILURE
 
 # Run a perfect one, expect SUCCESS
-../bin/metadata-json-lint metadata-perfect.json
-RESULT=$?
-if [ $RESULT -ne $SUCCESS ]; then
-    echo "Failing Test #2"
-fi
+test "perfect" $SUCCESS
 
 # Run a broken one, expect FAILURE
-../bin/metadata-json-lint metadata-noname.json >/dev/null 2>&1
-RESULT=$?
-if [ $RESULT -ne $FAILURE ]; then
-    echo "Failing Test #3"
-fi
+test "noname" $FAILURE
 
 # Run a broken one, expect FAILURE
-../bin/metadata-json-lint metadata-types.json >/dev/null 2>&1
-RESULT=$?
-if [ $RESULT -ne $FAILURE ]; then
-    echo "Failing Test #4"
-fi
+test "types" $FAILURE
 
 # Run a broken one, expect FAILURE
-../bin/metadata-json-lint metadata-multiple_problems.json >/dev/null 2>&1
-RESULT=$?
-if [ $RESULT -ne $FAILURE ]; then
-    echo "Failing Test #5"
-fi
+test "multiple_problems" $FAILURE
 
 # Run a broken one, expect FAILURE
-../bin/metadata-json-lint metadata-duplicate-dep.json >/dev/null 2>&1
-RESULT=$?
-if [ $RESULT -ne $FAILURE ]; then
-    echo "Failing Test #6"
-fi
+test "duplicate-dep" $FAILURE
 
 # Run a broken one, expect FAILURE
-../bin/metadata-json-lint metadata-bad_license.json >/dev/null 2>&1
-RESULT=$?
-if [ $RESULT -ne $FAILURE ]; then
-    echo "Failing Test #7"
-fi
+test "bad_license" $FAILURE
 
 # Run a broken one, expect SUCCESS
-../bin/metadata-json-lint --no-fail-on-warnings metadata-duplicate-dep.json >/dev/null 2>&1
-RESULT=$?
-if [ $RESULT -ne $SUCCESS ]; then
-    echo "Failing Test #8"
-fi
+(
+  cd duplicate-dep
+  ../../bin/metadata-json-lint --no-fail-on-warnings metadata.json >/dev/null 2>&1
+  RESULT=$?
+  if [ $RESULT -ne $SUCCESS ]; then
+      fail "Failing Test 'duplicate-dep' with --no-fail-on-warnings"
+  fi
+)
 
 # Run a broken one, expect SUCCESS
-../bin/metadata-json-lint --no-strict-license metadata-bad_license.json >/dev/null 2>&1
-RESULT=$?
-if [ $RESULT -ne $SUCCESS ]; then
-    echo "Failing Test #9"
-fi
+(
+  cd bad_license
+  ../../bin/metadata-json-lint --no-strict-license metadata.json >/dev/null 2>&1
+  RESULT=$?
+  if [ $RESULT -ne $SUCCESS ]; then
+      fail "Failing Test 'bad_license' with --no-strict-license"
+  fi
+)
 
 # Run a broken one, expect SUCCESS
 # Testing on no file given
 ../bin/metadata-json-lint >/dev/null 2>&1
 RESULT=$?
 if [ $RESULT -ne $FAILURE ]; then
-    echo "Failing Test #10"
+    fail "Failing Test with no file"
 fi
+
+exit $STATUS

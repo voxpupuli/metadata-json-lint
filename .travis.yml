@@ -1,0 +1,3 @@
+language: ruby
+script: cd tests && ./test.sh
+sudo: false
