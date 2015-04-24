@@ -76,6 +76,13 @@ module MetadataJsonLint
       end
     end
 
+    # Summary can not be over 144 characters:
+    # From: https://forge.puppetlabs.com/razorsedge/snmp/3.3.1/scores
+    if !parsed['summary'].nil? && parsed['summary'].size > 144
+      puts "Error: summary exceeds 144 characters in metadata.json."
+      error_state = true
+    end
+
     # Shoulds/recommendations
     # From: https://docs.puppetlabs.com/puppet/latest/reference/modules_publishing.html#write-a-metadatajson-file
 

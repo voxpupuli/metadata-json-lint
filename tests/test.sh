@@ -48,6 +48,9 @@ test "duplicate-dep" $FAILURE
 # Run a broken one, expect FAILURE
 test "bad_license" $FAILURE
 
+# Run a broken one, expect FAILURE
+test "long_summary" $FAILURE
+
 # Run a broken one, expect SUCCESS
 (
   cd duplicate-dep
