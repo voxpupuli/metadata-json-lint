@@ -51,6 +51,9 @@ test "bad_license" $FAILURE
 # Run a broken one, expect FAILURE
 test "long_summary" $FAILURE
 
+# Run test for "proprietary"-licensed modules, expect SUCCESS
+test "proprietary" $SUCCESS
+
 # Run a broken one, expect SUCCESS
 (
   cd duplicate-dep
