@@ -51,7 +51,7 @@ test "bad_license" $FAILURE
 # Run a broken one, expect FAILURE
 test "long_summary" $FAILURE
 
-# Run a perfect one, expect SUCCESS
+# Run test for "proprietary"-licensed modules, expect SUCCESS
 test "proprietary" $SUCCESS
 
 # Run a broken one, expect SUCCESS
