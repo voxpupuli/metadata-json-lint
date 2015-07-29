@@ -12,19 +12,18 @@ fail() {
 test() {
   name=$1; shift
   expect=$1; shift
-  (
-    cd $name
-    ../../bin/metadata-json-lint $* metadata.json >/dev/null 2>&1
-    RESULT=$?
-    if [ $RESULT -ne $expect ]; then
-        fail "Failing Test '${name}' (bin)"
-    fi
-    rake metadata_lint >/dev/null 2>&1
-    RESULT=$?
-    if [ $RESULT -ne $expect ]; then
-        fail "Failing Test '${name}' (rake)"
-    fi
-  )
+  cd $name
+  ../../bin/metadata-json-lint $* metadata.json >/dev/null 2>&1
+  RESULT=$?
+  if [ $RESULT -ne $expect ]; then
+      fail "Failing Test '${name}' (bin)"
+  fi
+  rake metadata_lint >/dev/null 2>&1
+  RESULT=$?
+  if [ $RESULT -ne $expect ]; then
+      fail "Failing Test '${name}' (rake)"
+  fi
+  cd ..
 }
 
 # Run a broken one, expect FAILURE
@@ -55,24 +54,22 @@ test "long_summary" $FAILURE
 test "proprietary" $SUCCESS
 
 # Run a broken one, expect SUCCESS
-(
-  cd duplicate-dep
-  ../../bin/metadata-json-lint --no-fail-on-warnings metadata.json >/dev/null 2>&1
-  RESULT=$?
-  if [ $RESULT -ne $SUCCESS ]; then
-      fail "Failing Test 'duplicate-dep' with --no-fail-on-warnings"
-  fi
-)
+cd duplicate-dep
+../../bin/metadata-json-lint --no-fail-on-warnings metadata.json >/dev/null 2>&1
+RESULT=$?
+if [ $RESULT -ne $SUCCESS ]; then
+    fail "Failing Test 'duplicate-dep' with --no-fail-on-warnings"
+fi
+cd ..
 
 # Run a broken one, expect SUCCESS
-(
-  cd bad_license
-  ../../bin/metadata-json-lint --no-strict-license metadata.json >/dev/null 2>&1
-  RESULT=$?
-  if [ $RESULT -ne $SUCCESS ]; then
-      fail "Failing Test 'bad_license' with --no-strict-license"
-  fi
-)
+cd bad_license
+../../bin/metadata-json-lint --no-strict-license metadata.json >/dev/null 2>&1
+RESULT=$?
+if [ $RESULT -ne $SUCCESS ]; then
+    fail "Failing Test 'bad_license' with --no-strict-license"
+fi
+cd ..
 
 # Run a broken one, expect SUCCESS
 # Testing on no file given
