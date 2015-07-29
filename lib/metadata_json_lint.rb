@@ -86,7 +86,7 @@ module MetadataJsonLint
     # Shoulds/recommendations
     # From: https://docs.puppetlabs.com/puppet/latest/reference/modules_publishing.html#write-a-metadatajson-file
 
-    if !parsed['license'].nil? && !SpdxLicenses.exist?(parsed['license']) && !parsed['license'] <=> "proprietary"
+    if !parsed['license'].nil? && !SpdxLicenses.exist?(parsed['license']) && parsed['license'] != "proprietary"
       puts "Warning: License identifier #{parsed['license']} is not in the SPDX list: http://spdx.org/licenses/"
       error_state = true if options[:strict_license]
     end
