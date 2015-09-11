@@ -1,10 +1,10 @@
 Gem::Specification.new do |s|
   s.name        = 'metadata-json-lint'
-  s.version     = '0.0.6'
-  s.date        = '2015-01-08'
+  s.version     = '0.0.7'
+  s.date        = '2015-09-11'
   s.summary     = "metadata-json-lint /path/to/metadata.json"
   s.description = "Utility to verify Puppet metadata.json files"
-  s.authors     = ["Spencer Krum", "HP Development Corporation LP"]
+  s.authors     = ["Spencer Krum", "In August"]
   s.email       = 'nibz@spencerkrum.com'
   s.files       = ["bin/metadata-json-lint", "lib/metadata_json_lint.rb", "lib/metadata-json-lint/rake_task.rb"]
   s.executables << 'metadata-json-lint'
