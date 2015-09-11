@@ -6,7 +6,7 @@ deploy:
   api_key:
     secure: SUfVOBMMWPiBfxhLZVXOJZug6oDYUJJAuolcXrEfRo96pL1hw6SACWYv/vp945bBDnoIAUTKps0db6ktORR95ch2YKMPqyyGZ97PFIlB49Ozjch5cZdVkazDuxTbJhTBqPuwufZ9gSuj1IrYB2tGOs43kMiPZRIvI/7DCa+HeKY=
   gem: metadata-json-lint
-  gemspec: metadata-json-lint.gemspec
+  gemspec: metadatajsonlint.gemspec
   on:
     tags: true
     repo: puppet-community/metadata-json-lint
