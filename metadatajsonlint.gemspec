@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = 'metadata-json-lint'
-  s.version     = '0.0.9'
+  s.version     = '0.0.10'
   s.date        = '2015-09-11'
   s.summary     = "metadata-json-lint /path/to/metadata.json"
   s.description = "Utility to verify Puppet metadata.json files"
