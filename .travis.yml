@@ -1,7 +1,9 @@
 notifications:
   email: false
 language: ruby
-script: cd tests && ./test.sh
+script:
+  - bundle exec rubocop
+  - cd tests && ./test.sh
 sudo: false
 deploy:
   provider: rubygems
