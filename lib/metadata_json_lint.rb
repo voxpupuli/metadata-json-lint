@@ -13,20 +13,18 @@ module MetadataJsonLint
 
   def run
     OptionParser.new do |opts|
-      opts.banner = "Usage: metadata-json-lint [options] metadata.json"
+      opts.banner = 'Usage: metadata-json-lint [options] metadata.json'
 
-      opts.on("--[no-]strict-license", "Don't fail on strict license check") do |v|
+      opts.on('--[no-]strict-license', "Don't fail on strict license check") do |v|
         options[:strict_license] = v
       end
 
-      opts.on("--[no-]fail-on-warnings", "Fail on any warnings") do |v|
+      opts.on('--[no-]fail-on-warnings', 'Fail on any warnings') do |v|
         options[:fail_on_warnings] = v
       end
     end.parse!
 
-    if ARGV[0].nil?
-      abort("Error: Must provide a metadata.json file to parse")
-    end
+    abort('Error: Must provide a metadata.json file to parse') if ARGV[0].nil?
 
     MetadataJsonLint.parse(ARGV.first)
   end
@@ -45,7 +43,7 @@ module MetadataJsonLint
     # From: https://docs.puppetlabs.com/puppet/latest/reference/modules_publishing.html#write-a-metadatajson-file
     error_state = false
 
-    required_fields = [ "name", "version", "author", "license", "summary", "source", "dependencies" ]
+    required_fields = %w(name version author license summary source dependencies)
 
     required_fields.each do |field|
       if parsed[field].nil?
@@ -67,10 +65,10 @@ module MetadataJsonLint
     # Deprecated fields
     # From: https://docs.puppetlabs.com/puppet/latest/reference/modules_publishing.html#write-a-metadatajson-file
 
-    deprecated_fields = ["types", "checksum"]
+    deprecated_fields = %w(types checksum)
 
     deprecated_fields.each do |field|
-      if not parsed[field].nil?
+      unless parsed[field].nil?
         puts "Error: Deprecated field '#{field}' found in metadata.json."
         error_state = true
       end
@@ -79,14 +77,14 @@ module MetadataJsonLint
     # Summary can not be over 144 characters:
     # From: https://forge.puppetlabs.com/razorsedge/snmp/3.3.1/scores
     if !parsed['summary'].nil? && parsed['summary'].size > 144
-      puts "Error: summary exceeds 144 characters in metadata.json."
+      puts 'Error: summary exceeds 144 characters in metadata.json.'
       error_state = true
     end
 
     # Shoulds/recommendations
     # From: https://docs.puppetlabs.com/puppet/latest/reference/modules_publishing.html#write-a-metadatajson-file
 
-    if !parsed['license'].nil? && !SpdxLicenses.exist?(parsed['license']) && parsed['license'] != "proprietary"
+    if !parsed['license'].nil? && !SpdxLicenses.exist?(parsed['license']) && parsed['license'] != 'proprietary'
       puts "Warning: License identifier #{parsed['license']} is not in the SPDX list: http://spdx.org/licenses/"
       error_state = true if options[:strict_license]
     end
@@ -98,7 +96,6 @@ module MetadataJsonLint
         puts "Errors found in #{metadata}"
       end
     end
-
   end
   module_function :parse
 end

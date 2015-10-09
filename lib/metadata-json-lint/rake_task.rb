@@ -5,7 +5,5 @@ require 'json'
 
 desc 'Run metadata-json-lint'
 task :metadata_lint do
-  if File.exist?('metadata.json')
-    MetadataJsonLint.parse('metadata.json')
-  end
+  MetadataJsonLint.parse('metadata.json') if File.exist?('metadata.json')
 end
