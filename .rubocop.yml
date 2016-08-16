@@ -1,9 +1,5 @@
 inherit_from: .rubocop_todo.yml
 
-# dealbreaker:
-Style/TrailingComma:
-  Enabled: false
-
 # we still support ruby 1.8
 Style/HashSyntax:
   Enabled: false
