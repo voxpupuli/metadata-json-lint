@@ -13,4 +13,4 @@ deploy:
   gemspec: metadata-json-lint.gemspec
   on:
     tags: true
-    repo: puppet-community/metadata-json-lint
+    repo: voxpupuli/metadata-json-lint
