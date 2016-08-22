@@ -16,15 +16,3 @@ Lint/RescueException:
 Style/Documentation:
   Exclude:
     - 'lib/metadata_json_lint.rb'
-
-# Offense count: 1
-# Configuration parameters: Exclude.
-Style/FileName:
-  Exclude:
-    - 'bin/metadata-json-lint'
-
-# Offense count: 1
-# Configuration parameters: MinBodyLength.
-Style/GuardClause:
-  Exclude:
-    - 'lib/metadata_json_lint.rb'
