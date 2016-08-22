@@ -12,28 +12,6 @@ Lint/RescueException:
     - 'lib/metadata_json_lint.rb'
 
 # Offense count: 1
-Metrics/AbcSize:
-  Max: 48
-
-# Offense count: 1
-Metrics/CyclomaticComplexity:
-  Max: 13
-
-# Offense count: 5
-# Configuration parameters: AllowURI, URISchemes.
-Metrics/LineLength:
-  Max: 112
-
-# Offense count: 2
-# Configuration parameters: CountComments.
-Metrics/MethodLength:
-  Max: 45
-
-# Offense count: 1
-Metrics/PerceivedComplexity:
-  Max: 14
-
-# Offense count: 1
 # Configuration parameters: Exclude.
 Style/Documentation:
   Exclude:
