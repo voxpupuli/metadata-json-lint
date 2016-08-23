@@ -17,7 +17,7 @@ gem install metadata-json-lint
 In your shell, with the `metadata-json-lint` and the path of your `metadata.json` file
 
 ```shell
-metadata-json-lint /path/too/metadata.json
+metadata-json-lint /path/to/metadata.json
 ```
 
 ### Rake task
@@ -36,6 +36,7 @@ rake metadata_lint
 ### Options
 
 ```
+--[no-]strict-dependencies   Fail on open-ended module version dependencies
 --[no-]strict-license        Don't fail on strict license check
 --[no-]fail-on-warnings      Fail on any warnings
 ```

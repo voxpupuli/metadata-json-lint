@@ -66,30 +66,5 @@
       "version_requirement": "3.x"
     }
   ],
-  "dependencies": [
-    {
-      "name": "puppetlabs/stdlib",
-      "version_requirement": "1.2.3"
-    },
-    {
-      "name": "puppetlabs/apt",
-      "version_requirement": "< 1.2.3"
-    },
-    {
-      "name": "puppetlabs/puppetdb",
-      "version_requirement": "<= 1.2.3"
-    },
-    {
-      "name": "puppetlabs/vcsrepo",
-      "version_requirement": ">= 1.0.0 < 2.0.0"
-    },
-    {
-      "name": "puppetlabs/rabbitmq",
-      "version_requirement": "1.x"
-    },
-    {
-      "name": "puppetlabs/motd",
-      "version_requirement": "1.2.x"
-    }
-  ]
+  "dependencies": []
 }
