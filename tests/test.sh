@@ -50,6 +50,18 @@ test "bad_license" $FAILURE
 # Run a broken one, expect FAILURE
 test "long_summary" $FAILURE
 
+# Run a broken one, expect FAILURE
+test "mixed_version_syntax" $FAILURE
+
+# Run one with empty dependencies array, expect SUCCESS
+test "no_dependencies" $SUCCESS
+
+# Run one with open ended dependency and --no-strict-dependency, expect SUCCESS
+test "open_ended_dependency" $SUCCESS
+
+# Run one with missing version_requirement and --no-strict-dependency, expect SUCCESS
+test "missing_version_requirement" $SUCCESS
+
 # Run test for "proprietary"-licensed modules, expect SUCCESS
 test "proprietary" $SUCCESS
 
@@ -71,7 +83,25 @@ if [ $RESULT -ne $SUCCESS ]; then
 fi
 cd ..
 
-# Run a broken one, expect SUCCESS
+# Run one with open ended dependency and --strict-dependency, expect FAILURE
+cd open_ended_dependency
+../../bin/metadata-json-lint --strict-dependencies metadata.json >/dev/null 2>&1
+RESULT=$?
+if [ $RESULT -ne $FAILURE ]; then
+    echo "Failing Test with open ended dependency"
+fi
+cd ..
+
+# Run one with missing version_requirement and --strict-dependency, expect FAILURE
+cd missing_version_requirement
+../../bin/metadata-json-lint --strict-dependencies metadata.json >/dev/null 2>&1
+RESULT=$?
+if [ $RESULT -ne $FAILURE ]; then
+    echo "Failing Test with missing version_requirement"
+fi
+cd ..
+
+# Run a broken one, expect FAILURE
 # Testing on no file given
 ../bin/metadata-json-lint >/dev/null 2>&1
 RESULT=$?

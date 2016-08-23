@@ -1,12 +1,14 @@
 require 'json'
 require 'spdx-licenses'
 require 'optparse'
+require 'semantic_puppet'
 
 module MetadataJsonLint
   def options
     @options ||= {
-      :fail_on_warnings => true,
-      :strict_license   => true
+      :fail_on_warnings    => true,
+      :strict_license      => true,
+      :strict_dependencies => false
     }
   end
   module_function :options
@@ -14,6 +16,10 @@ module MetadataJsonLint
   def run
     OptionParser.new do |opts|
       opts.banner = 'Usage: metadata-json-lint [options] metadata.json'
+
+      opts.on('--[no-]strict-dependencies', 'Fail on open-ended module version dependencies') do |v|
+        options[:strict_dependencies] = v
+      end
 
       opts.on('--[no-]strict-license', "Don't fail on strict license check") do |v|
         options[:strict_license] = v
@@ -52,15 +58,7 @@ module MetadataJsonLint
       end
     end
 
-    deps = parsed['dependencies']
-    dep_names = []
-    deps.each do |dep|
-      if dep_names.include?(dep['name'])
-        puts "Error: duplicate dependencies on #{dep['name']}"
-        error_state = true
-      end
-      dep_names << dep['name']
-    end
+    error_state ||= invalid_dependencies?(parsed['dependencies']) if parsed['dependencies']
 
     # Deprecated fields
     # From: https://docs.puppetlabs.com/puppet/latest/reference/modules_publishing.html#write-a-metadatajson-file
@@ -98,4 +96,36 @@ module MetadataJsonLint
     end
   end
   module_function :parse
+
+  def invalid_dependencies?(deps)
+    error_state = false
+    dep_names = []
+    deps.each do |dep|
+      if dep_names.include?(dep['name'])
+        puts "Error: duplicate dependencies on #{dep['name']}"
+        error_state = true
+      end
+      dep_names << dep['name']
+
+      # Open ended dependency
+      # From: https://docs.puppet.com/puppet/latest/reference/modules_metadata.html#best-practice-set-an-upper-bound-for-dependencies
+      begin
+        next unless dep['version_requirement'].nil? || open_ended?(dep['version_requirement'])
+        puts "Warning: Dependency #{dep['name']} has an open " \
+          "ended dependency version requirement #{dep['version_requirement']}"
+        error_state = true if options[:strict_dependencies]
+      rescue ArgumentError => e
+        # Raised when the version_requirement provided could not be parsed
+        puts "Invalid 'version_requirement' field in metadata.json: #{e}"
+        error_state = true
+      end
+    end
+    error_state
+  end
+  module_function :invalid_dependencies?
+
+  def open_ended?(module_end)
+    SemanticPuppet::VersionRange.parse(module_end).end == SemanticPuppet::Version::MAX
+  end
+  module_function :open_ended?
 end
