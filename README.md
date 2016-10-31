@@ -48,19 +48,5 @@ rake metadata_lint
 
 ## Contributors
 
-A Big thank you to the code contributors:
-
-* Spencer Krum
-* Rob Nelson
-* Matthew Haughton
-* Dominic Cleal
-* Tim Meusel
-* Igor Galić
-* Richard Pijnenburg
-* Djuri Baars
-* Joseph (Jy) Yaworski
-* Mike Arnold
-* Nan Liu
-* Raphaël Pinson
-* Sebastien Badia
-* William Van Hevelingen
+A Big thank you to the
+[contributors](https://github.com/voxpupuli/metadata-json-lint/graphs/contributors)
