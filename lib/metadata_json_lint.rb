@@ -87,12 +87,11 @@ module MetadataJsonLint
       error_state = true if options[:strict_license]
     end
 
-    if error_state
-      if options[:fail_on_warnings] == true
-        abort("Errors found in #{metadata}")
-      else
-        puts "Errors found in #{metadata}"
-      end
+    return unless error_state
+    if options[:fail_on_warnings] == true
+      abort("Errors found in #{metadata}")
+    else
+      puts "Errors found in #{metadata}"
     end
   end
   module_function :parse
