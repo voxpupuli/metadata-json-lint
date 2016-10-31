@@ -13,7 +13,7 @@ Gem::Specification.new do |s|
 
   s.add_runtime_dependency 'spdx-licenses', '~> 1.0'
   s.add_runtime_dependency 'json'
-  s.add_runtime_dependency 'semantic_puppet', '>= 0.1.2', '< 1.0.0'
+  s.add_runtime_dependency 'semantic_puppet', '>= 0.1.2', '< 2.0.0'
   s.add_development_dependency 'rake'
   s.add_development_dependency 'rubocop'
 end
