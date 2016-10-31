@@ -3,7 +3,7 @@ notifications:
 language: ruby
 script:
 - bundle exec rubocop
-- cd tests && ./test.sh && cd ..
+- tests/test.sh
 sudo: false
 rvm:
 - 2.2
