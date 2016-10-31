@@ -13,15 +13,20 @@ test() {
   name=$1; shift
   expect=$1; shift
   cd $name
-  ../../bin/metadata-json-lint $* metadata.json >/dev/null 2>&1
+  bundle exec metadata-json-lint $* metadata.json >/dev/null 2>&1
   RESULT=$?
   if [ $RESULT -ne $expect ]; then
       fail "Failing Test '${name}' (bin)"
   fi
-  rake metadata_lint >/dev/null 2>&1
-  RESULT=$?
-  if [ $RESULT -ne $expect ]; then
-      fail "Failing Test '${name}' (rake)"
+
+  # Only check the Rakefile when no additional arguments were passed to metadata-json-lint.
+  #   In these cases, rake will likely have the opposite return code and cause false failures.
+  if [ $# -eq 0 ]; then
+    bundle exec rake metadata_lint >/dev/null 2>&1
+    RESULT=$?
+    if [ $RESULT -ne $expect ]; then
+        fail "Failing Test '${name}' (rake)"
+    fi
   fi
   cd ..
 }
@@ -43,9 +48,13 @@ test "multiple_problems" $FAILURE
 
 # Run a broken one, expect FAILURE
 test "duplicate-dep" $FAILURE
+# Run with --no-fail-on-warnings, expect SUCCESS
+test "duplicate-dep" $SUCCESS --no-fail-on-warnings
 
 # Run a broken one, expect FAILURE
 test "bad_license" $FAILURE
+# Run with --no-strict-license, expect SUCCESS
+test "bad_license" $SUCCESS --no-strict-license
 
 # Run a broken one, expect FAILURE
 test "long_summary" $FAILURE
@@ -56,57 +65,20 @@ test "mixed_version_syntax" $FAILURE
 # Run one with empty dependencies array, expect SUCCESS
 test "no_dependencies" $SUCCESS
 
-# Run one with open ended dependency and --no-strict-dependency, expect SUCCESS
+# Run one with open ended dependency, expect SUCCESS
 test "open_ended_dependency" $SUCCESS
+# Run one with open ended dependency and --strict-dependencies, expect FAILURE
+test "open_ended_dependency" $FAILURE --strict-dependencies
 
 # Run one with missing version_requirement and --no-strict-dependency, expect SUCCESS
 test "missing_version_requirement" $SUCCESS
+# Run one with open ended dependency and --strict-dependencies, expect FAILURE
+test "missing_version_requirement" $FAILURE --strict-dependencies
 
 # Run test for "proprietary"-licensed modules, expect SUCCESS
 test "proprietary" $SUCCESS
 
-# Run a broken one, expect SUCCESS
-cd duplicate-dep
-../../bin/metadata-json-lint --no-fail-on-warnings metadata.json >/dev/null 2>&1
-RESULT=$?
-if [ $RESULT -ne $SUCCESS ]; then
-    fail "Failing Test 'duplicate-dep' with --no-fail-on-warnings"
-fi
-cd ..
-
-# Run a broken one, expect SUCCESS
-cd bad_license
-../../bin/metadata-json-lint --no-strict-license metadata.json >/dev/null 2>&1
-RESULT=$?
-if [ $RESULT -ne $SUCCESS ]; then
-    fail "Failing Test 'bad_license' with --no-strict-license"
-fi
-cd ..
-
-# Run one with open ended dependency and --strict-dependency, expect FAILURE
-cd open_ended_dependency
-../../bin/metadata-json-lint --strict-dependencies metadata.json >/dev/null 2>&1
-RESULT=$?
-if [ $RESULT -ne $FAILURE ]; then
-    echo "Failing Test with open ended dependency"
-fi
-cd ..
-
-# Run one with missing version_requirement and --strict-dependency, expect FAILURE
-cd missing_version_requirement
-../../bin/metadata-json-lint --strict-dependencies metadata.json >/dev/null 2>&1
-RESULT=$?
-if [ $RESULT -ne $FAILURE ]; then
-    echo "Failing Test with missing version_requirement"
-fi
-cd ..
-
-# Run a broken one, expect FAILURE
-# Testing on no file given
-../bin/metadata-json-lint >/dev/null 2>&1
-RESULT=$?
-if [ $RESULT -ne $FAILURE ]; then
-    fail "Failing Test with no file"
-fi
+# Run without a metadata.json or Rakefile, expect FAILURE
+test "no_files" $FAILURE
 
 exit $STATUS
