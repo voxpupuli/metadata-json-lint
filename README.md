@@ -4,6 +4,11 @@ Simple tool to validate and lint `metadata.json` files in Puppet modules as
 recommended in Puppet Forge style guidelines from [Puppet forge metadata style
 quide](https://docs.puppetlabs.com/puppet/latest/reference/modules_publishing.html#write-a-metadatajson-file)
 
+## Compatibility
+
+metadata-json-lint is compatible with Ruby versions 2.0.0, 2.1.9 and
+2.3.1.
+
 ## Installation
 
 ```shell
