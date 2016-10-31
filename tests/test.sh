@@ -1,4 +1,8 @@
 #!/bin/bash
+set -u
+
+# Ensure this can be called from outside its directory.
+cd $(dirname $0)
 
 SUCCESS=0
 FAILURE=1
