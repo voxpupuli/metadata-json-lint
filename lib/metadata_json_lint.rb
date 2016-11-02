@@ -15,7 +15,7 @@ module MetadataJsonLint
 
   def run
     OptionParser.new do |opts|
-      opts.banner = 'Usage: metadata-json-lint [options] metadata.json'
+      opts.banner = 'Usage: metadata-json-lint [options] [metadata.json]'
 
       opts.on('--[no-]strict-dependencies', 'Fail on open-ended module version dependencies') do |v|
         options[:strict_dependencies] = v
@@ -30,9 +30,17 @@ module MetadataJsonLint
       end
     end.parse!
 
-    abort('Error: Must provide a metadata.json file to parse') if ARGV[0].nil?
+    mj = if ARGV[0].nil?
+           if File.readable?('metadata.json')
+             'metadata.json'
+           else
+             abort('Error: metadata.json is not readable or does not exist.')
+           end
+         else
+           ARGV[0]
+         end
 
-    MetadataJsonLint.parse(ARGV.first)
+    MetadataJsonLint.parse(mj)
   end
   module_function :run
 

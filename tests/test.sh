@@ -85,4 +85,13 @@ test "proprietary" $SUCCESS
 # Run without a metadata.json or Rakefile, expect FAILURE
 test "no_files" $FAILURE
 
+# Test running without specifying file to parse
+cd perfect
+bundle exec metadata-json-lint
+if [ $? -ne 0 ]; then
+    fail "Failing Test 'running without specifying metadata.json' (bin)"
+else
+    echo "Successful Test 'running without specifying metadata.json' (bin)"
+fi
+
 exit $STATUS
