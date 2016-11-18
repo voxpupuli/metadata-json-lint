@@ -21,6 +21,8 @@ test() {
   RESULT=$?
   if [ $RESULT -ne $expect ]; then
       fail "Failing Test '${name}' (bin)"
+  else
+      echo "Successful Test '${name}' (bin)"
   fi
 
   # Only check the Rakefile when no additional arguments were passed to metadata-json-lint.
@@ -30,6 +32,8 @@ test() {
     RESULT=$?
     if [ $RESULT -ne $expect ]; then
         fail "Failing Test '${name}' (rake)"
+    else
+        echo "Successful Test '${name}' (rake)"
     fi
   fi
   cd ..
