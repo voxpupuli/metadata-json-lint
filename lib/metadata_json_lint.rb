@@ -95,6 +95,11 @@ module MetadataJsonLint
       error_state = true if options[:strict_license]
     end
 
+    if !parsed['tags'].nil? && !parsed['tags'].is_a?(Array)
+      puts "Warning: Tags must be in an array. Currently it's a #{parsed['tags'].class}."
+      error_state = true
+    end
+
     return unless error_state
     if options[:fail_on_warnings] == true
       abort("Errors found in #{metadata}")
