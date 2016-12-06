@@ -89,6 +89,12 @@ test "proprietary" $SUCCESS
 # Run without a metadata.json or Rakefile, expect FAILURE
 test "no_files" $FAILURE
 
+# Run with tags in an array in metadata.json, expect SUCCESS
+test "tags_with_array" $SUCCESS
+
+# Run with tags not in an array in metadata.json, expect FAILURE
+test "tags_no_array" $FAILURE
+
 # Test running without specifying file to parse
 cd perfect
 bundle exec metadata-json-lint
