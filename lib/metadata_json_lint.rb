@@ -5,11 +5,15 @@ require 'semantic_puppet'
 
 module MetadataJsonLint
   def options
-    @options ||= {
-      :fail_on_warnings    => true,
-      :strict_license      => true,
-      :strict_dependencies => false
-    }
+    @options ||= Struct.new(
+      :fail_on_warnings,
+      :strict_license,
+      :strict_dependencies
+    ).new(
+      true, # fail_on_warnings
+      true, # strict_license
+      false # strict_dependencies
+    )
   end
   module_function :options
 
@@ -45,6 +49,10 @@ module MetadataJsonLint
   module_function :run
 
   def parse(metadata)
+    # Small hack to use the module settings as defaults but allow overriding for different rake tasks
+    options = options().clone
+    # Configuration from rake tasks
+    yield options if block_given?
     f = File.read(metadata)
 
     begin
@@ -53,12 +61,11 @@ module MetadataJsonLint
       abort("Error: Unable to parse metadata.json: #{e.exception}")
     end
 
-    # Fields required to be in metadata.json
-    # From: https://docs.puppetlabs.com/puppet/latest/reference/modules_publishing.html#write-a-metadatajson-file
     error_state = false
 
+    # Fields required to be in metadata.json
+    # From: https://docs.puppetlabs.com/puppet/latest/reference/modules_publishing.html#write-a-metadatajson-file
     required_fields = %w(name version author license summary source dependencies)
-
     required_fields.each do |field|
       if parsed[field].nil?
         puts "Error: Required field '#{field}' not found in metadata.json."
@@ -70,9 +77,7 @@ module MetadataJsonLint
 
     # Deprecated fields
     # From: https://docs.puppetlabs.com/puppet/latest/reference/modules_publishing.html#write-a-metadatajson-file
-
     deprecated_fields = %w(types checksum)
-
     deprecated_fields.each do |field|
       unless parsed[field].nil?
         puts "Error: Deprecated field '#{field}' found in metadata.json."
@@ -89,7 +94,7 @@ module MetadataJsonLint
 
     # Shoulds/recommendations
     # From: https://docs.puppetlabs.com/puppet/latest/reference/modules_publishing.html#write-a-metadatajson-file
-
+    #
     if !parsed['license'].nil? && !SpdxLicenses.exist?(parsed['license']) && parsed['license'] != 'proprietary'
       puts "Warning: License identifier #{parsed['license']} is not in the SPDX list: http://spdx.org/licenses/"
       error_state = true if options[:strict_license]
