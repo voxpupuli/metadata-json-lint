@@ -1,0 +1,34 @@
+{
+  "name": "puppetlabs-postgresql",
+  "version": "3.4.1",
+  "author": "Inkling/Puppet Labs",
+  "summary": "PostgreSQL defined resource types",
+  "license": "Apache-2.0",
+  "source": "git://github.com/puppetlabs/puppet-postgresql.git",
+  "project_page": "https://github.com/puppetlabs/puppet-postgresql",
+  "issues_url": "https://github.com/puppetlabs/puppet-postgresql/issues",
+  "operatingsystem_support": [
+    {
+      "operatingsystem": "RedHat",
+      "operatingsystemrelease": [
+        "7"
+      ]
+    }
+  ],
+  "requirements": [
+    {
+      "name": "pe",
+      "version_requirement": ">= 3.2.0 < 3.4.0"
+    },
+    {
+      "name": "puppet",
+      "version_requirement": "3.x"
+    }
+  ],
+  "dependencies": [
+    {
+      "name": "puppetlabs/stdlib",
+      "version_range": ">= 1.0.0"
+    }
+  ]
+}

@@ -95,6 +95,9 @@ test "tags_with_array" $SUCCESS
 # Run with tags not in an array in metadata.json, expect FAILURE
 test "tags_no_array" $FAILURE
 
+# Run with 'version_range' on a dependency in metadata.json, expect FAILURE
+test "no_version_range" $FAILURE
+
 # Test running without specifying file to parse
 cd perfect
 bundle exec metadata-json-lint
