@@ -80,6 +80,10 @@ module MetadataJsonLint
       end
     end
 
+    # The nested 'requirements' name of 'pe' is deprecated as well.
+    # https://groups.google.com/forum/?utm_medium=email&utm_source=footer#!msg/puppet-users/nkRPvG4q0Oo/GmXa109aJQAJ
+    error_state ||= invalid_requirements?(parsed['requirements']) if parsed['requirements']
+
     # Summary can not be over 144 characters:
     # From: https://forge.puppetlabs.com/razorsedge/snmp/3.3.1/scores
     if !parsed['summary'].nil? && parsed['summary'].size > 144
@@ -108,6 +112,18 @@ module MetadataJsonLint
     end
   end
   module_function :parse
+
+  def invalid_requirements?(requirements)
+    error_state = false
+    requirements.each do |requirement|
+      if requirement['name'] == 'pe'
+        puts "The 'pe' requirement is no longer supported by the Forge."
+        error_state = true
+      end
+    end
+    error_state
+  end
+  module_function :invalid_requirements?
 
   def invalid_dependencies?(deps)
     error_state = false
