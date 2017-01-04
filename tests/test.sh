@@ -83,6 +83,9 @@ test "missing_version_requirement" $SUCCESS
 # Run one with open ended dependency and --strict-dependencies, expect FAILURE
 test "missing_version_requirement" $FAILURE --strict-dependencies
 
+# Run with a 'pe' compatibility, expect FAILURE
+test "no_pe" $FAILURE
+
 # Run test for "proprietary"-licensed modules, expect SUCCESS
 test "proprietary" $SUCCESS
 
