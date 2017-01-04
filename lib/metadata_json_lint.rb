@@ -147,6 +147,13 @@ module MetadataJsonLint
         puts "Invalid 'version_requirement' field in metadata.json: #{e}"
         error_state = true
       end
+
+      # 'version_range' is no longer used by the forge
+      # See https://tickets.puppetlabs.com/browse/PUP-2781
+      next unless dep['version_range']
+      puts "Warning: Dependency #{dep['name']} has a 'version_range' attribute " \
+        'which is no longer used by the forge.'
+      error_state = true
     end
     error_state
   end
