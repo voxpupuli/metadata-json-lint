@@ -115,12 +115,21 @@ test "tags_with_array" $SUCCESS
 test "tags_no_array" $FAILURE
 
 # Test running without specifying file to parse
-cd perfect
-bundle exec metadata-json-lint
-if [ $? -ne 0 ]; then
+(
+  cd perfect
+  bundle exec metadata-json-lint
+  if [ $? -ne 0 ]; then
     fail "Failing Test 'running without specifying metadata.json' (bin)"
-else
+  else
     echo "Successful Test 'running without specifying metadata.json' (bin)"
-fi
+  fi
+)
+
+# Test changing the rake task using settings
+test_bin "rake_global_options" $FAILURE
+test_rake "rake_global_options" $SUCCESS
+
+# Test multiple lints with different options
+test_rake "rake_multiple_json_options" $SUCCESS metadata_lint_multi
 
 exit $STATUS
