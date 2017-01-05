@@ -13,30 +13,49 @@ fail() {
   STATUS=1
 }
 
+# Tests the metadata-json-lint bin and if no additional arguments are given, also the rake task.
 test() {
-  name=$1; shift
-  expect=$1; shift
-  cd $name
-  bundle exec metadata-json-lint $* metadata.json >/dev/null 2>&1
-  RESULT=$?
-  if [ $RESULT -ne $expect ]; then
-      fail "Failing Test '${name}' (bin)"
-  else
-      echo "Successful Test '${name}' (bin)"
-  fi
+  local name=$1; shift
+  local expect=$1; shift
 
+  test_bin $name $expect $*
   # Only check the Rakefile when no additional arguments were passed to metadata-json-lint.
   #   In these cases, rake will likely have the opposite return code and cause false failures.
   if [ $# -eq 0 ]; then
-    bundle exec rake metadata_lint >/dev/null 2>&1
+    test_rake $name $expect metadata_lint
+  fi
+}
+
+test_bin() {
+  local name=$1; shift
+  local expect=$1; shift
+  local RESULT=-1
+  (cd $name;
+    bundle exec metadata-json-lint $* metadata.json >/dev/null 2>&1
     RESULT=$?
     if [ $RESULT -ne $expect ]; then
-        fail "Failing Test '${name}' (rake)"
+      fail "Failing Test '${name}' (bin)"
     else
-        echo "Successful Test '${name}' (rake)"
+      echo "Successful Test '${name}' (bin)"
     fi
-  fi
-  cd ..
+  )
+}
+
+test_rake() {
+  local name=$1; shift
+  local expect=$1; shift
+  local rake_task="${1-metadata_lint}"
+  local RESULT=-1;
+
+  (cd $name;
+    bundle exec rake $rake_task >/dev/null 2>&1
+    RESULT=$?
+    if [ $RESULT -ne $expect ]; then
+      fail "Failing Test '${name}' (rake: ${rake_task})"
+    else
+      echo "Successful Test '${name}' (rake: ${rake_task})"
+    fi;
+  )
 }
 
 # Run a broken one, expect FAILURE
