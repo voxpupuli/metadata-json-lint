@@ -17,15 +17,15 @@ module MetadataJsonLint
     OptionParser.new do |opts|
       opts.banner = 'Usage: metadata-json-lint [options] [metadata.json]'
 
-      opts.on('--[no-]strict-dependencies', 'Fail on open-ended module version dependencies') do |v|
+      opts.on('--[no-]strict-dependencies', "Fail on open-ended module version dependencies. Defaults to '#{options[:strict_dependencies]}'.") do |v|
         options[:strict_dependencies] = v
       end
 
-      opts.on('--[no-]strict-license', "Don't fail on strict license check") do |v|
+      opts.on('--[no-]strict-license', "Don't fail on strict license check. Defaults to '#{options[:strict_license]}'.") do |v|
         options[:strict_license] = v
       end
 
-      opts.on('--[no-]fail-on-warnings', 'Fail on any warnings') do |v|
+      opts.on('--[no-]fail-on-warnings', "Fail on any warnings. Defaults to '#{options[:fail_on_warnings]}'.") do |v|
         options[:fail_on_warnings] = v
       end
     end.parse!
