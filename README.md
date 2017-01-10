@@ -41,9 +41,10 @@ rake metadata_lint
 ### Options
 
 ```
---[no-]strict-dependencies   Fail on open-ended module version dependencies
---[no-]strict-license        Don't fail on strict license check
---[no-]fail-on-warnings      Fail on any warnings
+--[no-]strict-dependencies   Fail on open-ended module version dependencies. Defaults to 'false'.
+--[no-]strict-license        Don't fail on strict license check. Defaults to 'true'.
+--[no-]fail-on-warnings      Fail on any warnings. Defaults to 'true'.
+
 ```
 
 ## Contributors
