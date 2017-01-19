@@ -30,15 +30,15 @@ test_bin() {
   local name=$1; shift
   local expect=$1; shift
   local RESULT=-1
-  (cd $name;
-    bundle exec metadata-json-lint $* metadata.json >/dev/null 2>&1
-    RESULT=$?
-    if [ $RESULT -ne $expect ]; then
-      fail "Failing Test '${name}' (bin)"
-    else
-      echo "Successful Test '${name}' (bin)"
-    fi
-  )
+  cd $name;
+  bundle exec metadata-json-lint $* metadata.json >/dev/null 2>&1
+  RESULT=$?
+  if [ $RESULT -ne $expect ]; then
+    fail "Failing Test '${name}' (bin)"
+  else
+    echo "Successful Test '${name}' (bin)"
+  fi
+  cd ..
 }
 
 test_rake() {
@@ -47,15 +47,15 @@ test_rake() {
   local rake_task="${1-metadata_lint}"
   local RESULT=-1;
 
-  (cd $name;
-    bundle exec rake $rake_task >/dev/null 2>&1
-    RESULT=$?
-    if [ $RESULT -ne $expect ]; then
-      fail "Failing Test '${name}' (rake: ${rake_task})"
-    else
-      echo "Successful Test '${name}' (rake: ${rake_task})"
-    fi;
-  )
+  cd $name;
+  bundle exec rake $rake_task >/dev/null 2>&1
+  RESULT=$?
+  if [ $RESULT -ne $expect ]; then
+    fail "Failing Test '${name}' (rake: ${rake_task})"
+  else
+    echo "Successful Test '${name}' (rake: ${rake_task})"
+  fi;
+  cd ..
 }
 
 # Run a broken one, expect FAILURE
@@ -102,9 +102,6 @@ test "missing_version_requirement" $SUCCESS
 # Run one with open ended dependency and --strict-dependencies, expect FAILURE
 test "missing_version_requirement" $FAILURE --strict-dependencies
 
-# Run with a 'pe' compatibility, expect FAILURE
-test "no_pe" $FAILURE
-
 # Run test for "proprietary"-licensed modules, expect SUCCESS
 test "proprietary" $SUCCESS
 
@@ -117,19 +114,15 @@ test "tags_with_array" $SUCCESS
 # Run with tags not in an array in metadata.json, expect FAILURE
 test "tags_no_array" $FAILURE
 
-# Run with 'version_range' on a dependency in metadata.json, expect FAILURE
-test "no_version_range" $FAILURE
-
 # Test running without specifying file to parse
-(
-  cd perfect
-  bundle exec metadata-json-lint
-  if [ $? -ne 0 ]; then
+cd perfect
+bundle exec metadata-json-lint
+if [ $? -ne 0 ]; then
     fail "Failing Test 'running without specifying metadata.json' (bin)"
-  else
+else
     echo "Successful Test 'running without specifying metadata.json' (bin)"
-  fi
-)
+fi
+cd ..
 
 # Test changing the rake task using settings
 test_bin "rake_global_options" $FAILURE
