@@ -21,4 +21,4 @@ Metrics/PerceivedComplexity:
   Enabled: false
 
 Metrics/ModuleLength:
-  Max: 120
+  Max: 150

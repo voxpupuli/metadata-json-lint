@@ -1,0 +1,14 @@
+$LOAD_PATH.unshift(File.expand_path('../../../lib', __FILE__))
+require 'metadata_json_lint'
+MetadataJsonLint.options.fail_on_warnings = false
+
+desc "Test metadata_lint on multiple files. Don't fail"
+task :metadata_lint_multi do
+  MetadataJsonLint.parse('metadata_license.json') do |options|
+    options.strict_license = false
+  end
+  MetadataJsonLint.parse('metadata_ok.json') do |options|
+    options.strict_license = true
+    options.fail_on_warnings = true
+  end
+end

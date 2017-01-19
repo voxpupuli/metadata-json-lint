@@ -1,0 +1,3 @@
+$LOAD_PATH.unshift(File.expand_path('../../../lib', __FILE__))
+require 'metadata-json-lint/rake_task'
+MetadataJsonLint.options.strict_license = false
