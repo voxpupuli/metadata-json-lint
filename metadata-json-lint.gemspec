@@ -1,3 +1,5 @@
+require 'date'
+
 Gem::Specification.new do |s|
   s.name        = 'metadata-json-lint'
   s.version     = '1.0.0'
