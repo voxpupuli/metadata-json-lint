@@ -53,7 +53,11 @@ module MetadataJsonLint
     options = options().clone
     # Configuration from rake tasks
     yield options if block_given?
-    f = File.read(metadata)
+    begin
+      f = File.read(metadata)
+    rescue Exception => e
+      abort("Error: Unable to read metadata file: #{e.exception}")
+    end
 
     begin
       parsed = JSON.parse(f)

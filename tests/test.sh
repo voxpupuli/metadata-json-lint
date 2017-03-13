@@ -31,12 +31,30 @@ test_bin() {
   local expect=$1; shift
   local RESULT=-1
   cd $name;
-  bundle exec metadata-json-lint $* metadata.json >/dev/null 2>&1
+  bundle exec metadata-json-lint $* metadata.json >last_output 2>&1
   RESULT=$?
   if [ $RESULT -ne $expect ]; then
-    fail "Failing Test '${name}' (bin)"
+    fail "Failing Test '${name}' (unexpected exit code '${RESULT}' instead of '${expect}') (bin)"
+    echo "    Note: you can examine '${name}/last_output' for any output"
   else
-    echo "Successful Test '${name}' (bin)"
+    # If the test is not expected to succeed then it should match an expected output
+    if [ $expect -eq $SUCCESS ]; then
+      echo "Successful Test '${name}' (bin)"
+    else
+      if [ -f expected ]; then
+        if grep --quiet "`cat expected`" last_output; then
+          echo "Successful Test '${name}' (bin)"
+        else
+          fail "Failing Test '${name}' (did not get expected output) (bin)"
+          echo "    Comparing '${name}/expected' with '${name}/last_output':"
+          echo "        Expected: '`cat expected`'"
+          echo "        Actual: '`cat last_output`'"
+        fi
+      else
+        fail "Failing Test '${name}' (expected output file ${name}/expected is missing) (bin)"
+        echo "    Actual output that needs tested ('${name}/last_output'): '`cat last_output`'"
+      fi
+    fi
   fi
   cd ..
 }
@@ -125,6 +143,8 @@ fi
 cd ..
 
 # Test changing the rake task using settings
+# The bin test will fail due to strict licensing
+# The rake test should pass due to licensing option being set in Rakefile
 test_bin "rake_global_options" $FAILURE
 test_rake "rake_global_options" $SUCCESS
 
