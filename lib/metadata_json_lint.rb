@@ -110,7 +110,7 @@ module MetadataJsonLint
 
     if !parsed['tags'].nil? && !parsed['tags'].is_a?(Array)
       puts "Warning: Tags must be in an array. Currently it's a #{parsed['tags'].class}."
-      error_state = true
+      error_state = true if options[:fail_on_warnings]
     end
 
     return unless error_state
@@ -150,7 +150,7 @@ module MetadataJsonLint
         next unless dep['version_requirement'].nil? || open_ended?(dep['version_requirement'])
         puts "Warning: Dependency #{dep['name']} has an open " \
           "ended dependency version requirement #{dep['version_requirement']}"
-        error_state = true if options[:strict_dependencies]
+        error_state = true if options[:strict_dependencies] 
       rescue ArgumentError => e
         # Raised when the version_requirement provided could not be parsed
         puts "Invalid 'version_requirement' field in metadata.json: #{e}"
@@ -162,7 +162,7 @@ module MetadataJsonLint
       next unless dep['version_range']
       puts "Warning: Dependency #{dep['name']} has a 'version_range' attribute " \
         'which is no longer used by the forge.'
-      error_state = true
+      error_state = true || options[:fail_on_warnings]
     end
     error_state
   end
