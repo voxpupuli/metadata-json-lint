@@ -42,7 +42,7 @@ test_bin() {
       echo "Successful Test '${name}' (bin)"
     else
       if [ -f expected ]; then
-        if grep --quiet "`cat expected`" last_output; then
+        if grep -F --quiet -f expected last_output; then
           echo "Successful Test '${name}' (bin)"
         else
           fail "Failing Test '${name}' (did not get expected output) (bin)"
@@ -131,6 +131,9 @@ test "tags_with_array" $SUCCESS
 
 # Run with tags not in an array in metadata.json, expect FAILURE
 test "tags_no_array" $FAILURE
+
+# Run with json output format
+test "json_format" $FAILURE --format json
 
 # Test running without specifying file to parse
 cd perfect
