@@ -126,6 +126,9 @@ test "proprietary" $SUCCESS
 # Run without a metadata.json or Rakefile, expect FAILURE
 test "no_files" $FAILURE
 
+# Run a broken one, expect FAILURE
+test "dependencies_not_array" $FAILURE
+
 # Run with tags in an array in metadata.json, expect SUCCESS
 test "tags_with_array" $SUCCESS
 
