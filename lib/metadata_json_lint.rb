@@ -135,6 +135,11 @@ module MetadataJsonLint
   module_function :invalid_requirements?
 
   def invalid_dependencies?(deps)
+    unless deps.is_a?(Array)
+      puts "Warning: Dependencies must be in an array. Currently it's a #{deps.class}."
+      error_state = true
+      return error_state
+    end
     error_state = false
     dep_names = []
     deps.each do |dep|
