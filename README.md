@@ -1,15 +1,14 @@
-# metadata-json-linter
+# metadata-json-lint
 
-Simple tool to validate and lint `metadata.json` files in Puppet modules as
-recommended in Puppet Forge style guidelines from [Puppet forge metadata style
-quide](https://docs.puppetlabs.com/puppet/latest/reference/modules_publishing.html#write-a-metadatajson-file)
+The metadata-json-lint tool validates and lints `metadata.json` files in Puppet modules against style guidelines from the [Puppet Forge module metadata](https://docs.puppet.com/puppet/latest/modules_publishing.html#write-a-metadatajson-file) recommendations.
 
 ## Compatibility
 
-metadata-json-lint is compatible with Ruby versions 2.0.0, 2.1.9 and
-2.3.1.
+metadata-json-lint is compatible with Ruby versions 2.0.0, 2.1.9, and 2.3.1.
 
 ## Installation
+
+Install the `metadata-json-lint` gem:
 
 ```shell
 gem install metadata-json-lint
@@ -17,28 +16,25 @@ gem install metadata-json-lint
 
 ## Usage
 
-### By hand
+### Testing with metadata-json-lint
 
-In your shell, with the `metadata-json-lint` and the path of your `metadata.json` file
+On the command line, run `metadata-json-lint` with the path of your `metadata.json` file:
 
 ```shell
 metadata-json-lint /path/to/metadata.json
 ```
 
-### Rake task
+### Testing with metadata-json-lint as a Rake task
 
-If you are already using the puppet_spec_helper, you get metadata-json-lint
-checking for free using the 'validate' task.
+If you are already using `puppet_spec_helper`, the 'validate' task already includes `metadata-json-lint`.
 
-You can also integrate `metadata.json` lint in you tests, using the rake tast.
-You can add `require 'metadata-json-lint/rake_task'` to your Rakefile and then
-run
+You can also integrate `metadata-json-lint` checks into your tests using the Rake task. Add `require 'metadata-json-lint/rake_task'` to your `Rakefile`, and then run:
 
 ```ruby
 rake metadata_lint
 ```
 
-You can also set options using a rake task when manually defining it:
+To set options for the Rake task, include them when you define the task:
 
 ```ruby
 require 'metadata-json-lint'
@@ -49,7 +45,7 @@ task :metadata_lint do
 end
 ```
 
-Alternative:
+Alternatively, set the option after requiring the Rake task:
 
 ```ruby
 require 'metadata-json-lint/rake_task'
@@ -58,14 +54,10 @@ MetadataJsonLint.options.strict_license = false
 
 ### Options
 
-```
---[no-]strict-dependencies   Fail on open-ended module version dependencies. Defaults to 'false'.
---[no-]strict-license        Don't fail on strict license check. Defaults to 'true'.
---[no-]fail-on-warnings      Fail on any warnings. Defaults to 'true'.
-
-```
+* `--[no-]strict-dependencies`: Whether to fail if module version dependencies are open-ended. Defaults to `false`.
+* `--[no-]strict-license`: Whether to fail on strict license check. Defaults to `true`.
+* `--[no-]fail-on-warnings`: Whether to fail on warnings. Defaults to `true`.
 
 ## Contributors
 
-A Big thank you to the
-[contributors](https://github.com/voxpupuli/metadata-json-lint/graphs/contributors)
+A big thank you to the [contributors](https://github.com/voxpupuli/metadata-json-lint/graphs/contributors).
