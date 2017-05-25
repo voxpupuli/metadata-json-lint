@@ -42,7 +42,7 @@ test_bin() {
       echo "Successful Test '${name}' (bin)"
     else
       if [ -f expected ]; then
-        if grep -F --quiet -f expected last_output; then
+        if grep --quiet -f expected last_output; then
           echo "Successful Test '${name}' (bin)"
         else
           fail "Failing Test '${name}' (did not get expected output) (bin)"
