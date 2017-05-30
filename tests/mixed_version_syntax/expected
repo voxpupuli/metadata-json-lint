@@ -1,1 +1,1 @@
-Invalid 'version_requirement' field in metadata.json: Unparsable version range: ">= 3.2.x"
+(WARN) dependencies: Mixing "x" or "\*" version syntax with operators is not recommended in metadata.json, use one style in the puppetlabs/stdlib dependency: >= 3.2.x

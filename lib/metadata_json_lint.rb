@@ -1,7 +1,8 @@
 require 'json'
 require 'spdx-licenses'
 require 'optparse'
-require 'semantic_puppet'
+
+require 'metadata-json-lint/version_requirement'
 
 module MetadataJsonLint
   def options
@@ -155,33 +156,41 @@ module MetadataJsonLint
       end
       dep_names << dep['name']
 
-      # Open ended dependency
-      # From: https://docs.puppet.com/puppet/latest/reference/modules_metadata.html#best-practice-set-an-upper-bound-for-dependencies
       begin
-        next unless dep['version_requirement'].nil? || open_ended?(dep['version_requirement'])
-
-        msg = "Dependency #{dep['name']} has an open " \
-          "ended dependency version requirement #{dep['version_requirement']}"
-
-        options[:strict_dependencies] == true ? error(:dependencies, msg) : warn(:dependencies, msg)
+        requirement = VersionRequirement.new(dep.fetch('version_requirement', ''))
       rescue ArgumentError => e
         # Raised when the version_requirement provided could not be parsed
         error :dependencies, "Invalid 'version_requirement' field in metadata.json: #{e}"
       end
+      validate_version_requirement!(dep, requirement)
 
       # 'version_range' is no longer used by the forge
       # See https://tickets.puppetlabs.com/browse/PUP-2781
-      next unless dep['version_range']
-      warn :dependencies, "Dependency #{dep['name']} has a 'version_range' attribute " \
-        'which is no longer used by the forge.'
+      if dep.key?('version_range')
+        warn :dependencies, "Dependency #{dep['name']} has a 'version_range' attribute " \
+          'which is no longer used by the forge.'
+      end
     end
   end
   module_function :validate_dependencies!
 
-  def open_ended?(module_end)
-    SemanticPuppet::VersionRange.parse(module_end).end == SemanticPuppet::Version::MAX
+  def validate_version_requirement!(dep, requirement)
+    # Open ended dependency
+    # From: https://docs.puppet.com/puppet/latest/reference/modules_metadata.html#best-practice-set-an-upper-bound-for-dependencies
+    if requirement.open_ended?
+      msg = "Dependency #{dep['name']} has an open " \
+        "ended dependency version requirement #{dep['version_requirement']}"
+      options[:strict_dependencies] == true ? error(:dependencies, msg) : warn(:dependencies, msg)
+    end
+
+    # Mixing operator and wildcard version syntax
+    # From: https://docs.puppet.com/puppet/latest/modules_metadata.html#version-specifiers
+    # Supported in Puppet 5 and higher, but the syntax is unclear and incompatible with older versions
+    return unless requirement.mixed_syntax?
+    warn(:dependencies, 'Mixing "x" or "*" version syntax with operators is not recommended in ' \
+      "metadata.json, use one style in the #{dep['name']} dependency: #{dep['version_requirement']}")
   end
-  module_function :open_ended?
+  module_function :validate_version_requirement!
 
   def format_error(check, msg)
     case options[:format]
