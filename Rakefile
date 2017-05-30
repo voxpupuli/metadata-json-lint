@@ -1,5 +1,5 @@
 desc 'Run all tests'
-task :test => %i[rubocop test:acceptance]
+task :test => %i[rubocop spec test:acceptance]
 
 require 'rubocop/rake_task'
 RuboCop::RakeTask.new
@@ -10,3 +10,6 @@ namespace :test do
     sh 'tests/test.sh'
   end
 end
+
+require 'rspec/core/rake_task'
+RSpec::Core::RakeTask.new(:spec)
