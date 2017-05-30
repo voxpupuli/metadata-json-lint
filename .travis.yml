@@ -2,8 +2,7 @@
 language: ruby
 
 script:
-  - bundle exec rubocop
-  - tests/test.sh
+  - bundle exec rake test
 
 sudo: false
 
