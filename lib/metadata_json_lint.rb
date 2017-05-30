@@ -177,10 +177,18 @@ module MetadataJsonLint
   def validate_version_requirement!(dep, requirement)
     # Open ended dependency
     # From: https://docs.puppet.com/puppet/latest/reference/modules_metadata.html#best-practice-set-an-upper-bound-for-dependencies
-    return unless requirement.open_ended?
-    msg = "Dependency #{dep['name']} has an open " \
-      "ended dependency version requirement #{dep['version_requirement']}"
-    options[:strict_dependencies] == true ? error(:dependencies, msg) : warn(:dependencies, msg)
+    if requirement.open_ended?
+      msg = "Dependency #{dep['name']} has an open " \
+        "ended dependency version requirement #{dep['version_requirement']}"
+      options[:strict_dependencies] == true ? error(:dependencies, msg) : warn(:dependencies, msg)
+    end
+
+    # Mixing operator and wildcard version syntax
+    # From: https://docs.puppet.com/puppet/latest/modules_metadata.html#version-specifiers
+    # Supported in Puppet 5 and higher, but the syntax is unclear and incompatible with older versions
+    return unless requirement.mixed_syntax?
+    warn(:dependencies, 'Mixing "x" or "*" version syntax with operators is not recommended in ' \
+      "metadata.json, use one style in the #{dep['name']} dependency: #{dep['version_requirement']}")
   end
   module_function :validate_version_requirement!
 
