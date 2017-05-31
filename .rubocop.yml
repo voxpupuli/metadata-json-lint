@@ -17,6 +17,10 @@ Metrics/LineLength:
 Metrics/MethodLength:
   Enabled: false
 
+Metrics/BlockLength:
+  Exclude:
+    - spec/**/*_spec.rb
+
 Metrics/PerceivedComplexity:
   Enabled: false
 
