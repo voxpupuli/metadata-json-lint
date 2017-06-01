@@ -1,0 +1,91 @@
+{
+  "name": "puppetlabs-postgresql",
+  "version": "3.4.1",
+  "author": "Inkling/Puppet Labs",
+  "summary": "PostgreSQL defined resource types",
+  "license": "Apache-2.0",
+  "source": "git://github.com/puppetlabs/puppet-postgresql.git",
+  "project_page": "https://github.com/puppetlabs/puppet-postgresql",
+  "issues_url": "https://github.com/puppetlabs/puppet-postgresql/issues",
+  "operatingsystem_support": [
+    {
+      "operatingsystem": "RedHat",
+      "operatingsystemrelease": [
+        "5",
+        "6",
+        "7"
+      ]
+    },
+    {
+      "operatingsystem": "CentOS",
+      "operatingsystemrelease": [
+        "5",
+        "6",
+        "7"
+      ]
+    },
+    {
+      "operatingsystem": "OracleLinux",
+      "operatingsystemrelease": [
+        "5",
+        "6",
+        "7"
+      ]
+    },
+    {
+      "operatingsystem": "Scientific",
+      "operatingsystemrelease": [
+        "5",
+        "6",
+        "7"
+      ]
+    },
+    {
+      "operatingsystem": "Debian",
+      "operatingsystemrelease": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "operatingsystem": "Ubuntu",
+      "operatingsystemrelease": [
+        "10.04",
+        "12.04",
+        "14.04"
+      ]
+    }
+  ],
+  "requirements": [
+    {
+      "name": "puppet",
+      "version_requirement": "3.x"
+    }
+  ],
+  "dependencies": [
+    {
+      "name": "puppetlabs/stdlib",
+      "version_requirement": "1.2.3"
+    },
+    {
+      "name": "puppetlabs/apt",
+      "version_requirement": "< 1.2.3"
+    },
+    {
+      "name": "puppetlabs/puppetdb",
+      "version_requirement": "<= 1.2.3"
+    },
+    {
+      "name": "puppetlabs/vcsrepo",
+      "version_requirement": ">= 1.0.0 < 2.0.0"
+    },
+    {
+      "name": "puppetlabs/rabbitmq",
+      "version_requirement": "1.x"
+    },
+    {
+      "name": "puppetlabs/motd",
+      "version_requirement": "1.2.x"
+    }
+  ]
+}

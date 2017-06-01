@@ -51,7 +51,7 @@ module MetadataJsonLint
            ARGV[0]
          end
 
-    MetadataJsonLint.parse(mj)
+    exit(MetadataJsonLint.parse(mj) ? 0 : 1)
   end
   module_function :run
 
@@ -131,11 +131,11 @@ module MetadataJsonLint
       end
 
       if !@errors.empty? || (!@warnings.empty? && (options[:fail_on_warnings] == true))
-        exit(1)
+        return false
       end
     end
 
-    exit(0)
+    true
   end
   module_function :parse
 

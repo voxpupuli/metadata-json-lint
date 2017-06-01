@@ -3,4 +3,4 @@
 Gemfile.lock
 /.bundle
 /vendor
-tests/*/last_output
+tests/*/last_*output

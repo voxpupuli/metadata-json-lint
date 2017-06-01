@@ -66,7 +66,7 @@ test_rake() {
   local RESULT=-1;
 
   cd $name;
-  bundle exec rake $rake_task >/dev/null 2>&1
+  bundle exec rake $rake_task >last_rake_output 2>&1
   RESULT=$?
   if [ $RESULT -ne $expect ]; then
     fail "Failing Test '${name}' (rake: ${rake_task})"
@@ -153,5 +153,11 @@ test_rake "rake_global_options" $SUCCESS
 
 # Test multiple lints with different options
 test_rake "rake_multiple_json_options" $SUCCESS metadata_lint_multi
+
+# Test successful lint followed by further tasks
+test_rake "rake_chaining" $SUCCESS test
+if ! grep -qx "Successfully linted" rake_chaining/last_rake_output; then
+  fail "Failing Test 'rake_chaining' failed to run second rake task"
+fi
 
 exit $STATUS
