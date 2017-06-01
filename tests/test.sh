@@ -98,8 +98,10 @@ test "duplicate-dep" $SUCCESS --no-fail-on-warnings
 
 # Run a broken one, expect FAILURE
 test "bad_license" $FAILURE
-# Run with --no-strict-license, expect SUCCESS
-test "bad_license" $SUCCESS --no-strict-license --no-fail-on-warnings
+# Run with --no-strict-license only, expect SUCCESS
+test "bad_license" $SUCCESS --no-strict-license
+# Run with --no-fail-on-warnings, expect SUCCESS
+test "bad_license" $SUCCESS --no-fail-on-warnings
 
 # Run a broken one, expect FAILURE
 test "long_summary" $FAILURE
