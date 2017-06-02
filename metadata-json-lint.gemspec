@@ -2,7 +2,7 @@ require 'date'
 
 Gem::Specification.new do |s|
   s.name        = 'metadata-json-lint'
-  s.version     = '1.2.1'
+  s.version     = '1.2.2'
   s.date        = Date.today.to_s
   s.summary     = 'metadata-json-lint /path/to/metadata.json'
   s.description = 'Utility to verify Puppet metadata.json files'
