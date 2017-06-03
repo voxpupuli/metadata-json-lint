@@ -2,6 +2,7 @@ require 'json'
 require 'spdx-licenses'
 require 'optparse'
 
+require 'metadata-json-lint/schema'
 require 'metadata-json-lint/version_requirement'
 
 module MetadataJsonLint
@@ -75,13 +76,10 @@ module MetadataJsonLint
       abort("Error: Unable to parse metadata.json: #{e.exception}")
     end
 
-    # Fields required to be in metadata.json
-    # From: https://docs.puppetlabs.com/puppet/latest/reference/modules_publishing.html#write-a-metadatajson-file
-    required_fields = %w[name version author license summary source dependencies]
-    required_fields.each do |field|
-      if parsed[field].nil?
-        error :required_fields, "Required field '#{field}' not found in metadata.json."
-      end
+    # Validate basic structure against JSON schema
+    schema_errors = Schema.new.validate(parsed)
+    schema_errors.each do |err|
+      error (err[:field] == 'root' ? :required_fields : err[:field]), err[:message]
     end
 
     validate_dependencies!(parsed['dependencies']) if parsed['dependencies']
@@ -99,22 +97,12 @@ module MetadataJsonLint
     # https://groups.google.com/forum/?utm_medium=email&utm_source=footer#!msg/puppet-users/nkRPvG4q0Oo/GmXa109aJQAJ
     validate_requirements!(parsed['requirements']) if parsed['requirements']
 
-    # Summary can not be over 144 characters:
-    # From: https://forge.puppetlabs.com/razorsedge/snmp/3.3.1/scores
-    if !parsed['summary'].nil? && parsed['summary'].size > 144
-      error :summary, 'Field \'summary\' exceeds 144 characters in metadata.json.'
-    end
-
     # Shoulds/recommendations
     # From: https://docs.puppetlabs.com/puppet/latest/reference/modules_publishing.html#write-a-metadatajson-file
     #
     if options[:strict_license] && !parsed['license'].nil? && !SpdxLicenses.exist?(parsed['license']) && parsed['license'] != 'proprietary'
       msg = "License identifier #{parsed['license']} is not in the SPDX list: http://spdx.org/licenses/"
       warn(:license, msg)
-    end
-
-    if !parsed['tags'].nil? && !parsed['tags'].is_a?(Array)
-      error :tags, "Tags must be in an array. Currently it's a #{parsed['tags'].class}."
     end
 
     if !@errors.empty? || !@warnings.empty?

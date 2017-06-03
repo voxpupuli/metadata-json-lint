@@ -1,1 +1,1 @@
-Tags must be in an array. Currently it's a String.
+(ERROR) tags: The property 'tags' of type string did not match the following type: array
