@@ -37,8 +37,8 @@ module MetadataJsonLint
         options[:fail_on_warnings] = v
       end
 
-      opts.on('-f', '--format FORMAT', %i[text json], 'The format in which results will be output (text, json)') do |format|
-        options[:format] = format
+      opts.on('-f', '--format FORMAT', %w[text json], 'The format in which results will be output (text, json)') do |format|
+        options[:format] = format.to_sym
       end
     end.parse!
 

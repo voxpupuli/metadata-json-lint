@@ -1,5 +1,5 @@
 desc 'Run all tests'
-task :test => %i[rubocop spec test:acceptance]
+task test: %w[rubocop spec test:acceptance]
 
 require 'rubocop/rake_task'
 RuboCop::RakeTask.new
