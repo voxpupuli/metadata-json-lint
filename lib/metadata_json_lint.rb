@@ -164,10 +164,10 @@ module MetadataJsonLint
   def validate_version_requirement!(dep, requirement)
     # Open ended dependency
     # From: https://docs.puppet.com/puppet/latest/reference/modules_metadata.html#best-practice-set-an-upper-bound-for-dependencies
-    if requirement.open_ended?
+    if options[:strict_dependencies] && requirement.open_ended?
       msg = "Dependency #{dep['name']} has an open " \
         "ended dependency version requirement #{dep['version_requirement']}"
-      options[:strict_dependencies] == true ? error(:dependencies, msg) : warn(:dependencies, msg)
+      warn(:dependencies, msg)
     end
 
     # Mixing operator and wildcard version syntax

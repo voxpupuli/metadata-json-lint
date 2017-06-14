@@ -112,15 +112,19 @@ test "mixed_version_syntax" $FAILURE
 # Run one with empty dependencies array, expect SUCCESS
 test "no_dependencies" $SUCCESS
 
-# Run one with open ended dependency, expect SUCCESS
-test "open_ended_dependency" $SUCCESS --no-fail-on-warnings
+# Run one with open ended dependency, expect SUCCESS as strict deps is off by default
+test "open_ended_dependency" $SUCCESS
 # Run one with open ended dependency and --strict-dependencies, expect FAILURE
 test "open_ended_dependency" $FAILURE --strict-dependencies
+# Run one with open ended dependency and --strict-dependencies, but pass on warnings, expect SUCCESS
+test "open_ended_dependency" $SUCCESS --strict-dependencies --no-fail-on-warnings
 
 # Run one with missing version_requirement and --no-strict-dependency, expect SUCCESS
-test "missing_version_requirement" $SUCCESS --no-fail-on-warnings
+test "missing_version_requirement" $SUCCESS
 # Run one with open ended dependency and --strict-dependencies, expect FAILURE
 test "missing_version_requirement" $FAILURE --strict-dependencies
+# Run one with open ended dependency and --strict-dependencies, but pass on warnings, expect SUCCESS
+test "missing_version_requirement" $SUCCESS --strict-dependencies --no-fail-on-warnings
 
 # Run test for "proprietary"-licensed modules, expect SUCCESS
 test "proprietary" $SUCCESS
