@@ -2,7 +2,7 @@ require 'date'
 
 Gem::Specification.new do |s|
   s.name        = 'metadata-json-lint'
-  s.version     = '1.2.2'
+  s.version     = '2.0.0'
   s.date        = Date.today.to_s
   s.summary     = 'metadata-json-lint /path/to/metadata.json'
   s.description = 'Utility to verify Puppet metadata.json files'
@@ -19,8 +19,16 @@ Gem::Specification.new do |s|
   s.required_ruby_version = '>= 2.0.0'
   s.add_runtime_dependency 'spdx-licenses', '~> 1.0'
   s.add_runtime_dependency 'json-schema', '~> 2.8'
-  s.add_runtime_dependency 'semantic_puppet', '>= 0.1.2', '< 2.0.0'
   s.add_development_dependency 'rake'
   s.add_development_dependency 'rspec'
   s.add_development_dependency 'rubocop'
+  s.requirements << 'semantic_puppet >= 0.1.2 < 2.0.0'
+  s.post_install_message = <<-EOS
+  -------------------------------------------------------------------
+      If your puppet is <= 4.x, then the semantic_puppet gem MUST
+      be in your Gemfile!!
+
+      On puppet >= 5.x, semantic_puppet will break functionality!
+  -------------------------------------------------------------------
+  EOS
 end
