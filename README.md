@@ -4,14 +4,35 @@ The metadata-json-lint tool validates and lints `metadata.json` files in Puppet 
 
 ## Compatibility
 
-metadata-json-lint is compatible with Ruby versions 2.0.0, 2.1.9, and 2.3.1.
+metadata-json-lint is compatible with Ruby versions 2.0.0, 2.1.9, 2.3.1, and 2.4.1.
 
 ## Installation
+**NOTE: `metadata-json-lint` has a dependency on the `semantic_puppet` gem if you're on 
+Puppet 4 or earlier. This dependency was removed from the gemspec file due to a conflict 
+in Puppet 5 where the `semantic_puppet` ruby gem conflicts with a version of 
+`semantic_puppet` bundled with the core Puppet 5 code.**
 
-Install the `metadata-json-lint` gem:
-
-```shell
+### Puppet 5
+via `gem` command:
+``` shell
 gem install metadata-json-lint
+```
+
+via Gemfile:
+``` ruby
+gem 'metadata-json-lint'
+```
+
+### Puppet 4 and earlier
+via `gem` command:
+``` shell
+gem install metadata-json-lint semantic_puppet
+```
+
+via Gemfile:
+``` ruby
+gem 'metadata-json-lint'
+gem 'semantic_puppet'
 ```
 
 ## Usage
