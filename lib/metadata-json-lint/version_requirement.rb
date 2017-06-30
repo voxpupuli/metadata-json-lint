@@ -1,4 +1,5 @@
 require 'puppet'
+require 'semantic_puppet' unless Puppet.version >= '4.9.0'
 
 module MetadataJsonLint
   # Parses a string module version requirement with semantic_puppet and
