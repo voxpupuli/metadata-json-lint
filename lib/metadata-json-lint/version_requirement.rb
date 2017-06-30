@@ -1,4 +1,4 @@
-require 'semantic_puppet'
+require 'puppet'
 
 module MetadataJsonLint
   # Parses a string module version requirement with semantic_puppet and
