@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## 2.0.0
+
+### Changes
+* The `semantic_puppet` gem is no longer included as a runtime dependency due to conflicts with Puppet 5.x libraries that break the `puppet module` command. As such, `semantic_puppet` must be added to a user's Gemfile in Puppet <= 4.x. See [Installation](https://github.com/voxpupuli/metadata-json-lint#installation) docs for more info
+* `metadata-json-lint` now officially only supports Ruby >= 2.0.0
+
+### Fixed
+* Fix puppet 5.x `semantic_puppet` conflicts ([#79](https://github.com/voxpupuli/metadata-json-lint/issues/79))
+* Clarify Ruby >= 2.x only support ([#74](https://github.com/voxpupuli/metadata-json-lint/issues/74))
+
 ## 1.2.2
 
 ### Fixed
