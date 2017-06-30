@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## 2.0.1
+
+### Changes
+* Puppet 4.9.0 and newer uses the vendored `semantic_puppet` packaged with Puppet.
+* If using Puppet 4.8.x and earlier, adding `semantic_puppet` to your Gemfile is required
+as the vendored `semantic_puppet` was not packaged with Puppet prior to `4.9.0`
+* Add test environment for Ruby 2.4.1 
+
 ## 2.0.0
 
 ### Changes
