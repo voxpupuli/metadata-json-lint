@@ -30,7 +30,7 @@ gem install metadata-json-lint semantic_puppet
 via Gemfile:
 ``` ruby
 gem 'metadata-json-lint'
-gem 'semantic_puppet
+gem 'semantic_puppet'
 ```
 
 ## Usage
