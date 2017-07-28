@@ -141,10 +141,28 @@ module MetadataJsonLint
 
     private
 
+    def semver_full_regex
+      @semver_full_regex ||= begin
+        # Version string matching regexes
+        numeric = '(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)' # Major . Minor . Patch
+        pre     = '(?:-([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?' # Prerelease
+        build   = '(?:\+([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?' # Build
+        full    = numeric + pre + build
+
+        /\A#{full}\Z/
+      end
+    end
+
     def semver_validator(value)
-      SemanticPuppet::Version.parse(value)
-    rescue SemanticPuppet::Version::ValidationFailure => e
-      raise JSON::Schema::CustomFormatError, "must be a valid semantic version: #{e.message}"
+      if defined?(SemanticPuppet::Version)
+        begin
+          SemanticPuppet::Version.parse(value)
+        rescue SemanticPuppet::Version::ValidationFailure => e
+          raise JSON::Schema::CustomFormatError, "must be a valid semantic version: #{e.message}"
+        end
+      elsif value.match(semver_full_regex).nil?
+        raise JSON::Schema::CustomFormatError, "must be a valid semantic version: Unable to parse '#{value}' as a semantic version identifier"
+      end
     end
   end
 end
