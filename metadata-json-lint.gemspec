@@ -22,4 +22,11 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'rake'
   s.add_development_dependency 'rspec'
   s.add_development_dependency 'rubocop'
+  s.post_install_message = '
+  ----------------------------------------------------------
+      For the most accurate results, the semantic_puppet
+      gem should be included within your Gemfile if you
+      use Puppet <= 4.8.x
+  ----------------------------------------------------------
+  '
 end
