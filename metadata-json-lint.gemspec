@@ -19,14 +19,14 @@ Gem::Specification.new do |s|
   s.required_ruby_version = '>= 2.0.0'
   s.add_runtime_dependency 'spdx-licenses', '~> 1.0'
   s.add_runtime_dependency 'json-schema', '~> 2.8'
-  s.add_runtime_dependency 'puppet', '>= 4.7.0', '< 6.0.0'
   s.add_development_dependency 'rake'
   s.add_development_dependency 'rspec'
   s.add_development_dependency 'rubocop'
   s.post_install_message = '
-  -------------------------------------------------
-      semantic_puppet must be installed within
-      your Gemfile if you use Puppet <= 4.8.x!!
-  -------------------------------------------------
+  ----------------------------------------------------------
+      For the most accurate results, the semantic_puppet
+      gem should be included within your Gemfile if you
+      use Puppet <= 4.8.x
+  ----------------------------------------------------------
   '
 end
