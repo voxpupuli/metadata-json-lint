@@ -5,6 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## 2.0.2
+
+### Changes
+* Make SemanticPuppet completely optional and remove dependency on Puppet [#86](https://github.com/voxpupuli/metadata-json-lint/pull/86)
+* Only log open dependency warning with --strict-dependencies [#78](https://github.com/voxpupuli/metadata-json-lint/pull/78)
+
+### Fixed
+* Fix readme for gemfile usage [#84](https://github.com/voxpupuli/metadata-json-lint/pull/84)
+
 ## 2.0.1
 
 ### Changes
