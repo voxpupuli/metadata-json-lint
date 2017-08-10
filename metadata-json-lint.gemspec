@@ -28,5 +28,5 @@ Gem::Specification.new do |s|
       gem should be included within your Gemfile if you
       use Puppet <= 4.8.x
   ----------------------------------------------------------
-  '
+  '.gsub(/^  /, '')
 end
