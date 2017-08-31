@@ -154,6 +154,8 @@ module MetadataJsonLint
       rescue ArgumentError => e
         # Raised when the version_requirement provided could not be parsed
         error :dependencies, "Invalid 'version_requirement' field in metadata.json: #{e}"
+        # Skip to the next dependency
+        next
       end
       validate_version_requirement!(dep, requirement)
 

@@ -7,6 +7,7 @@ module MetadataJsonLint
 
       if defined?(SemanticPuppet::VersionRange)
         @range = SemanticPuppet::VersionRange.parse(requirement)
+        raise ArgumentError, "Range matches no versions: \"#{requirement}\"" if @range == SemanticPuppet::VersionRange::EMPTY_RANGE
       elsif requirement.match(/\A[a-z0-9*.\-^~><=|\t ]*\Z/i).nil?
         raise ArgumentError, "Unparsable version range: \"#{requirement}\""
       end
