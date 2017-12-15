@@ -21,7 +21,7 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency 'json-schema', '~> 2.8'
   s.add_development_dependency 'rake'
   s.add_development_dependency 'rspec'
-  s.add_development_dependency 'rubocop'
+  s.add_development_dependency 'rubocop', '~> 0.50.0'
   s.post_install_message = '
   ----------------------------------------------------------
       For the most accurate results, the semantic_puppet
