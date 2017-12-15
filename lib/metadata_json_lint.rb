@@ -133,6 +133,8 @@ module MetadataJsonLint
   module_function :parse
 
   def validate_requirements!(requirements)
+    return unless requirements.is_a?(Array)
+
     requirements.each do |requirement|
       if requirement['name'] == 'pe'
         warn :requirements, "The 'pe' requirement is no longer supported by the Forge."
