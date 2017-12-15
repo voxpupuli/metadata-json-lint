@@ -141,6 +141,9 @@ test "tags_no_array" $FAILURE
 # Run with json output format
 test "json_format" $FAILURE --format json
 
+# Run against a metadata.json with a string for the requirements
+test "non_array_requirements" $FAILURE
+
 # Test running without specifying file to parse
 cd perfect
 bundle exec metadata-json-lint
