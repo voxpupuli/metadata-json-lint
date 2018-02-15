@@ -5,6 +5,24 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## 2.1.0
+
+### Changes
+* Improve rendering of post\_install message by trimming unnecessary leading
+  spaces [#89](https://github.com/voxpupuli/metadata-json-lint/pull/89)
+* Fail when checking version requirements if the version range is empty
+  [#91](https://github.com/voxpupuli/metadata-json-lint/pull/91)
+* Pin `public_suffix` gem to < 3 for Ruby <= 2.0
+  [#93](https://github.com/voxpupuli/metadata-json-lint/pull/93)
+
+### Fixed
+* Prevent metadata-json-lint from crashing when the `requirements` field does
+  not contain an array
+  [#94](https://github.com/voxpupuli/metadata-json-lint/pull/94)
+* Fix loading of `semantic_puppet` so that it supports using version vendored
+  in Puppet (if available)
+  [#96](https://github.com/voxpupuli/metadata-json-lint/pull/96)
+
 ## 2.0.2
 
 ### Changes
