@@ -152,7 +152,7 @@ module MetadataJsonLint
         error :dependencies, "Invalid 'version_requirement' field in metadata.json: #{e}"
       end
 
-      validate_puppet_ver!(puppet_req)
+      validate_puppet_ver!(puppet_req) unless puppet_req.instance_variable_get('@requirement').empty?
     end
   end
   module_function :validate_requirements!

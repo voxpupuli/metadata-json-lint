@@ -19,6 +19,7 @@ Gem::Specification.new do |s|
   s.required_ruby_version = '>= 2.0.0'
   s.add_runtime_dependency 'spdx-licenses', '~> 1.0'
   s.add_runtime_dependency 'json-schema', '~> 2.8'
+  s.add_development_dependency 'pry'
   s.add_development_dependency 'rake'
   s.add_development_dependency 'semantic_puppet'
   s.add_development_dependency 'rspec'
