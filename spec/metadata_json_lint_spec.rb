@@ -21,17 +21,17 @@ describe MetadataJsonLint do
       end
     end
 
-    # context 'with invalid requirement' do
-    #   let :requirements do
-    #     [
-    #       { 'version_requirement' => 'a' }
-    #     ]
-    #   end
-    #
-    #   it do
-    #     expect(described_class).to receive('error').with(:requirements, "Invalid 'version_requirement' field in metadata.json: Unparsable version range: \"a\"")
-    #     expect { described_class.validate_requirements!(requirements) }.not_to raise_error
-    #   end
-    # end
+    context 'with invalid requirement' do
+      let :requirements do
+        [
+          { 'name' => 'puppet', 'version_requirement' => 'a' }
+        ]
+      end
+
+      it do
+        expect(described_class).to receive('error').with(:requirements, "Invalid 'version_requirement' field in metadata.json: Unparsable version range: \"a\"")
+        expect { described_class.validate_requirements!(requirements) }.not_to raise_error
+      end
+    end
   end
 end

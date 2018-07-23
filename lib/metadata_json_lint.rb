@@ -149,10 +149,10 @@ module MetadataJsonLint
         puppet_req = VersionRequirement.new(requirement.fetch('version_requirement', ''))
       rescue ArgumentError => e
         # Raised when the version_requirement provided could not be parsed
-        error :dependencies, "Invalid 'version_requirement' field in metadata.json: #{e}"
+        error :requirements, "Invalid 'version_requirement' field in metadata.json: #{e}"
       end
 
-      validate_puppet_ver!(puppet_req) unless puppet_req.instance_variable_get('@requirement').empty?
+      validate_puppet_ver!(puppet_req) unless puppet_req.instance_variable_get('@requirement').nil?
     end
   end
   module_function :validate_requirements!
