@@ -159,16 +159,16 @@ module MetadataJsonLint
 
   def validate_puppet_ver!(requirement)
     if options[:strict_puppet_version] && requirement.open_ended?
-      warn(:requirements, "Puppet has an open ended version requirement #{requirement.ver_range}")
+      warn(:requirement, "Puppet has an open ended version requirement #{requirement.ver_range}")
     end
 
     if options[:strict_puppet_version] && requirement.puppet_eol?
-      warn(:requirements, "#{requirement.min} is no longer supported. Minimum supported version is #{MIN_PUPPET_VER}")
+      warn(:requirement, "#{requirement.min} is no longer supported. Minimum supported version is #{MIN_PUPPET_VER}")
     end
 
     return unless requirement.mixed_syntax?
-    warn(:dependencies, 'Mixing "x" or "*" version syntax with operators is not recommended in ' \
-      "metadata.json, use one style in the #{dep['name']} dependency: #{dep['version_requirement']}")
+    warn(:requirement, 'Mixing "x" or "*" version syntax with operators is not recommended in ' \
+      "metadata.json, use one style in the puppet version: #{requirement.instance_variable_get('@requirement')}")
   end
   module_function :validate_puppet_ver!
 
