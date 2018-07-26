@@ -47,6 +47,22 @@ module MetadataJsonLint
       end
     end
 
+    def puppet_eol?
+      true if range.begin < SemanticPuppet::Version.parse(MIN_PUPPET_VER)
+    end
+
+    def ver_range
+      range
+    end
+
+    def min
+      range.begin
+    end
+
+    def max
+      range.end
+    end
+
     private
 
     attr_reader :range, :requirement

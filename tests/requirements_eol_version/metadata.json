@@ -7,6 +7,7 @@
   "source": "git://github.com/puppetlabs/puppet-postgresql.git",
   "project_page": "https://github.com/puppetlabs/puppet-postgresql",
   "issues_url": "https://github.com/puppetlabs/puppet-postgresql/issues",
+  "tags": [ "postgres" ],
   "operatingsystem_support": [
     {
       "operatingsystem": "RedHat",
@@ -59,29 +60,33 @@
   "requirements": [
     {
       "name": "puppet",
-      "version_requirement": "5.5.1"
+      "version_requirement": "3.2.0"
     }
   ],
   "dependencies": [
     {
       "name": "puppetlabs/stdlib",
-      "version_requirement": "4.x"
-    },
-    {
-      "name": "puppetlabs/stdlib",
-      "version_requirement": "4.x"
-    },
-    {
-      "name": "puppetlabs/firewall",
-      "version_requirement": ">= 0.0.4"
+      "version_requirement": "1.2.3"
     },
     {
       "name": "puppetlabs/apt",
-      "version_requirement": ">=1.1.0 <2.0.0"
+      "version_requirement": "< 1.2.3"
     },
     {
-      "name": "puppetlabs/concat",
-      "version_requirement": ">= 1.1.0 <2.0.0"
+      "name": "puppetlabs/puppetdb",
+      "version_requirement": "<= 1.2.3"
+    },
+    {
+      "name": "puppetlabs/vcsrepo",
+      "version_requirement": ">= 1.0.0 < 2.0.0"
+    },
+    {
+      "name": "puppetlabs/rabbitmq",
+      "version_requirement": "1.x"
+    },
+    {
+      "name": "puppetlabs/motd",
+      "version_requirement": "1.2.x"
     }
   ]
 }

@@ -20,6 +20,7 @@ Metrics/MethodLength:
 Metrics/BlockLength:
   Exclude:
     - spec/**/*_spec.rb
+    - ./*.gemspec
 
 Metrics/PerceivedComplexity:
   Enabled: false

@@ -8,8 +8,6 @@ metadata-json-lint is compatible with Ruby versions 2.0.0, 2.1.9, 2.3.1, and 2.4
 
 ## Installation
 
-Puppet 4.9.0 and newer:
-
 via `gem` command:
 ``` shell
 gem install metadata-json-lint
@@ -18,19 +16,6 @@ gem install metadata-json-lint
 via Gemfile:
 ``` ruby
 gem 'metadata-json-lint'
-```
-
-**Puppet 4.8.x and older:**
-
-via `gem` command:
-``` shell
-gem install metadata-json-lint semantic_puppet
-```
-
-via Gemfile:
-``` ruby
-gem 'metadata-json-lint'
-gem 'semantic_puppet'
 ```
 
 ## Usage
@@ -76,6 +61,7 @@ MetadataJsonLint.options.strict_license = false
 * `--[no-]strict-dependencies`: Whether to fail if module version dependencies are open-ended. Defaults to `false`.
 * `--[no-]strict-license`: Whether to fail on strict license check. Defaults to `true`.
 * `--[no-]fail-on-warnings`: Whether to fail on warnings. Defaults to `true`.
+* `--[no-]strict-puppet-version`: Whether to fail if Puppet version requirements are open-ended or no longer supported. Defaults to `false`.
 
 ## Contributors
 
