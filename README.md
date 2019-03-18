@@ -41,7 +41,7 @@ rake metadata_lint
 To set options for the Rake task, include them when you define the task:
 
 ```ruby
-require 'metadata-json-lint'
+require 'metadata_json_lint'
 task :metadata_lint do
   MetadataJsonLint.parse('metadata.json') do |options|
       options.strict_license = false
