@@ -19,6 +19,7 @@ deploy:
   gem: metadata-json-lint
   on:
     tags: true
+    rvm: 2.5.1
     repo: voxpupuli/metadata-json-lint
 
 notifications:
