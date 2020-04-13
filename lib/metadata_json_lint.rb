@@ -137,6 +137,18 @@ module MetadataJsonLint
   end
   module_function :parse
 
+  def validate_requirements_unique(requirements)
+    names = requirements.map { |x| x['name'] }
+    counts = Hash.new(0)
+
+    names.each { |name| counts[name.downcase] += 1 }
+
+    counts.each do |k, v|
+      error :requirements, "Duplicate entries in the 'requirements' list with the name '#{k}'" if v > 1
+    end
+  end
+  module_function :validate_requirements_unique
+
   def validate_requirements!(requirements)
     return unless requirements.is_a?(Array)
 
@@ -154,6 +166,8 @@ module MetadataJsonLint
 
       validate_puppet_ver!(puppet_req) unless puppet_req.instance_variable_get('@requirement').nil?
     end
+
+    validate_requirements_unique(requirements)
   end
   module_function :validate_requirements!
 
