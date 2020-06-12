@@ -63,6 +63,21 @@ MetadataJsonLint.options.strict_license = false
 * `--[no-]fail-on-warnings`: Whether to fail on warnings. Defaults to `true`.
 * `--[no-]strict-puppet-version`: Whether to fail if Puppet version requirements are open-ended or no longer supported. Defaults to `false`.
 
+
+## Make a new release
+
+To make a new release, we need to install the release gem group:
+
+```sh
+bundle install --path .vendor/ --with release
+```
+
+Afterwards export a GitHub access token (otherwise you might run into API rate limits):
+
+```sh
+export CHANGELOG_GITHUB_TOKEN=...
+```
+
 ## Contributors
 
 A big thank you to the [contributors](https://github.com/voxpupuli/metadata-json-lint/graphs/contributors).

@@ -2,4 +2,6 @@ source 'https://rubygems.org'
 
 gemspec
 
-gem 'public_suffix', '< 3' if RUBY_VERSION < '2.1'
+group :release do
+  gem 'github_changelog_generator', :require => false
+end
