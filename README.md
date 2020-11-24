@@ -63,21 +63,63 @@ MetadataJsonLint.options.strict_license = false
 * `--[no-]fail-on-warnings`: Whether to fail on warnings. Defaults to `true`.
 * `--[no-]strict-puppet-version`: Whether to fail if Puppet version requirements are open-ended or no longer supported. Defaults to `false`.
 
-
-## Make a new release
-
-To make a new release, we need to install the release gem group:
-
-```sh
-bundle install --path .vendor/ --with release
-```
-
-Afterwards export a GitHub access token (otherwise you might run into API rate limits):
-
-```sh
-export CHANGELOG_GITHUB_TOKEN=...
-```
-
 ## Contributors
 
 A big thank you to the [contributors](https://github.com/voxpupuli/metadata-json-lint/graphs/contributors).
+
+## Making a new release
+
+How to make a new release?
+
+* update the gemspec file with the desired version
+
+```console
+$ git diff
+diff --git a/metadata-json-lint.gemspec b/metadata-json-lint.gemspec
+index c86668e..6a3ad38 100644
+--- a/metadata-json-lint.gemspec
++++ b/metadata-json-lint.gemspec
+@@ -2,7 +2,7 @@ require 'date'
+
+ Gem::Specification.new do |s|
+   s.name        = 'metadata-json-lint'
+-  s.version     = '2.4.0'
++  s.version     = '2.5.0'
+   s.date        = Date.today.to_s
+   s.summary     = 'metadata-json-lint /path/to/metadata.json'
+   s.description = 'Utility to verify Puppet metadata.json files'
+```
+
+* export a GitHub access token as environment variable:
+
+```console
+export CHANGELOG_GITHUB_TOKEN=*token*
+```
+
+* Install deps and generate the changelog
+
+```console
+$ bundle install --path .vendor/ --jobs=$(nproc) --with release
+$ bundle exec rake changelog
+Found 25 tags
+Fetching tags dates: 25/25
+Sorting tags...
+Received issues: 103
+Pull Request count: 77
+Filtered pull requests: 72
+Filtered issues: 26
+Fetching events for issues and PR: 98
+Fetching closed dates for issues: 98/98
+Fetching SHAs for tags: 25
+Associating PRs with tags: 72/72
+Generating entry...
+Done!
+Generated log placed in ~/metadata-json-lint/CHANGELOG.md
+```
+
+* Check the diff for `CHANGELOG.md`. Does it contain a breaking change but the
+new version is only a minor bump? Does the new release only contains bug fixes?
+Adjust the version properly while honouring semantic versioning. If required,
+regenerate the `CHANGELOG.md`. Afterwards submit it as a PR.
+
+* If it gets approved, merge the PR, create a git tag on that and push it.

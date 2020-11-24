@@ -2,9 +2,17 @@
 
 All notable changes to this project will be documented in this file.
 
-## [v2.4.0](https://github.com/voxpupuli/metadata-json-lint/tree/v2.4.0) (2020-06-12)
+## [v3.0.0](https://github.com/voxpupuli/metadata-json-lint/tree/v3.0.0) (2020-11-23)
 
-[Full Changelog](https://github.com/voxpupuli/metadata-json-lint/compare/2.3.0...v2.4.0)
+[Full Changelog](https://github.com/voxpupuli/metadata-json-lint/compare/2.4.0...v3.0.0)
+
+**Merged pull requests:**
+
+- Require Ruby 2.1 and drop post\_install\_message [\#112](https://github.com/voxpupuli/metadata-json-lint/pull/112) ([ekohl](https://github.com/ekohl))
+
+## [2.4.0](https://github.com/voxpupuli/metadata-json-lint/tree/2.4.0) (2020-06-12)
+
+[Full Changelog](https://github.com/voxpupuli/metadata-json-lint/compare/2.3.0...2.4.0)
 
 **Merged pull requests:**
 
