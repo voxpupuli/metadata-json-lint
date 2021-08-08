@@ -23,5 +23,5 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'rake'
   s.add_development_dependency 'semantic_puppet'
   s.add_development_dependency 'rspec'
-  s.add_development_dependency 'rubocop', '~> 0.50.0'
+  s.add_development_dependency 'rubocop', '~> 0.57.2'
 end
