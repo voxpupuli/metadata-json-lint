@@ -1,5 +1,12 @@
 # metadata-json-lint
 
+[![License](https://img.shields.io/github/license/voxpupuli/metadata-json-lint.svg)](https://github.com/voxpupuli/metadata-json-lint/blob/master/LICENSE)
+[![Test](https://github.com/voxpupuli/metadata-json-lint/actions/workflows/test.yml/badge.svg)](https://github.com/voxpupuli/metadata-json-lint/actions/workflows/test.yml)
+[![codecov](https://codecov.io/gh/voxpupuli/metadata-json-lint/branch/master/graph/badge.svg)](https://codecov.io/gh/voxpupuli/metadata-json-lint)
+[![Release](https://github.com/voxpupuli/metadata-json-lint/actions/workflows/release.yml/badge.svg)](https://github.com/voxpupuli/metadata-json-lint/actions/workflows/release.yml)
+[![RubyGem Version](https://img.shields.io/gem/v/metadata-json-lint.svg)](https://rubygems.org/gems/metadata-json-lint)
+[![RubyGem Downloads](https://img.shields.io/gem/dt/metadata-json-lint.svg)](https://rubygems.org/gems/metadata-json-lint)
+
 The metadata-json-lint tool validates and lints `metadata.json` files in Puppet modules against style guidelines from the [Puppet Forge module metadata](https://docs.puppet.com/puppet/latest/modules_publishing.html#write-a-metadatajson-file) recommendations.
 
 ## Compatibility
