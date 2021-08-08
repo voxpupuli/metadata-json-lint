@@ -9,7 +9,6 @@ module MetadataJsonLint
   class Schema
     # Based on https://docs.puppet.com/puppet/latest/modules_metadata.html
     #
-    # rubocop:disable Style/TrailingCommaInLiteral # easier to modify individual lines
     def schema
       {
         '$schema' => 'http://json-schema.org/draft-04/schema#',
@@ -101,7 +100,7 @@ module MetadataJsonLint
           'tags' => {
             'type' => 'array',
             'items' => {
-              'type' => 'string'
+              'type' => 'string',
             },
           },
           'version' => {
@@ -121,7 +120,6 @@ module MetadataJsonLint
         ],
       }
     end
-    # rubocop:enable Style/TrailingCommaInLiteral
 
     def validate(data, options = {})
       JSON::Validator.register_format_validator('semver', method(:semver_validator))
@@ -166,3 +164,4 @@ module MetadataJsonLint
     end
   end
 end
+# rubocop:enable Metrics/ClassLength
