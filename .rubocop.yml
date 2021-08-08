@@ -27,3 +27,9 @@ Metrics/PerceivedComplexity:
 
 Metrics/ModuleLength:
   Max: 185
+
+Style/TrailingCommaInHashLiteral:
+  EnforcedStyleForMultiline: consistent_comma
+
+Style/AccessModifierDeclarations:
+  Enabled: false

@@ -1,4 +1,4 @@
-$LOAD_PATH.unshift(File.expand_path('../../../lib', __FILE__))
+$LOAD_PATH.unshift(File.expand_path('../../lib', __dir__))
 require 'metadata_json_lint'
 MetadataJsonLint.options.fail_on_warnings = false
 
