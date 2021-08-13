@@ -1,10 +1,23 @@
 # Changelog
 
-All notable changes to this project will be documented in this file.
+## [3.0.1](https://github.com/voxpupuli/metadata-json-lint/tree/3.0.1) (2021-08-13)
 
-## [v3.0.0](https://github.com/voxpupuli/metadata-json-lint/tree/v3.0.0) (2020-11-23)
+[Full Changelog](https://github.com/voxpupuli/metadata-json-lint/compare/3.0.0...3.0.1)
 
-[Full Changelog](https://github.com/voxpupuli/metadata-json-lint/compare/2.4.0...v3.0.0)
+**Closed issues:**
+
+- For the license: missing a file and license headers in source files [\#115](https://github.com/voxpupuli/metadata-json-lint/issues/115)
+- one test fails against ruby 2.7 when semantic\_puppet is not present [\#114](https://github.com/voxpupuli/metadata-json-lint/issues/114)
+- Missing possibility to set options via spec\_helper.rb like rspec [\#18](https://github.com/voxpupuli/metadata-json-lint/issues/18)
+
+**Merged pull requests:**
+
+- Update rubocop requirement from ~\> 0.50.0 to ~\> 0.57.2 [\#117](https://github.com/voxpupuli/metadata-json-lint/pull/117) ([dependabot[bot]](https://github.com/apps/dependabot))
+- Add GitHub actions + badges [\#116](https://github.com/voxpupuli/metadata-json-lint/pull/116) ([bastelfreak](https://github.com/bastelfreak))
+
+## [3.0.0](https://github.com/voxpupuli/metadata-json-lint/tree/3.0.0) (2020-11-24)
+
+[Full Changelog](https://github.com/voxpupuli/metadata-json-lint/compare/2.4.0...3.0.0)
 
 **Merged pull requests:**
 
