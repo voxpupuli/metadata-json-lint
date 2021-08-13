@@ -2,7 +2,7 @@ require 'date'
 
 Gem::Specification.new do |s|
   s.name        = 'metadata-json-lint'
-  s.version     = '3.0.0'
+  s.version     = '3.0.1'
   s.date        = Date.today.to_s
   s.summary     = 'metadata-json-lint /path/to/metadata.json'
   s.description = 'Utility to verify Puppet metadata.json files'
@@ -13,7 +13,7 @@ Gem::Specification.new do |s|
   s.executables = s.files.grep(%r{^bin/}) { |f| File.basename(f) }
   s.test_files  = s.files.grep(%r{^(tests|spec)/})
 
-  s.homepage    = 'http://github.com/voxpupuli/metadata-json-lint'
+  s.homepage    = 'https://github.com/voxpupuli/metadata-json-lint'
   s.license     = 'Apache-2.0'
 
   s.required_ruby_version = '>= 2.1.0'
