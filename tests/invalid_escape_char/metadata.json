@@ -1,0 +1,6 @@
+{
+  "puppet_task_version": 1,
+  "supports_noop": false,
+  "description": "A description with an invalid \( escape sequence",
+  "parameters": {}
+}
