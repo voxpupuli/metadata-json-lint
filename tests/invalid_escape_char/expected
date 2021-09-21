@@ -1,1 +1,1 @@
-Error: Unable to parse metadata.json: [0-9]*: unexpected token at
+Error: Unable to parse metadata.json: Invalid escape character in string
