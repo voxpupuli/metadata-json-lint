@@ -1,5 +1,13 @@
 # Changelog
 
+## [3.0.2](https://github.com/voxpupuli/metadata-json-lint/tree/3.0.2) (2022-05-03)
+
+[Full Changelog](https://github.com/voxpupuli/metadata-json-lint/compare/3.0.1...3.0.2)
+
+**Merged pull requests:**
+
+- Update json-schema requirement from ~\> 2.8 to \>= 2.8, \< 4.0 [\#121](https://github.com/voxpupuli/metadata-json-lint/pull/121) ([dependabot[bot]](https://github.com/apps/dependabot))
+
 ## [3.0.1](https://github.com/voxpupuli/metadata-json-lint/tree/3.0.1) (2021-08-13)
 
 [Full Changelog](https://github.com/voxpupuli/metadata-json-lint/compare/3.0.0...3.0.1)
