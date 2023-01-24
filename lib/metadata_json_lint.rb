@@ -2,8 +2,11 @@ require 'json'
 require 'spdx-licenses'
 require 'optparse'
 
-require 'metadata-json-lint/semantic_puppet_loader'
-MetadataJsonLint::SemanticPuppetLoader.try_load
+begin
+  require 'semantic_puppet'
+rescue LoadError
+  warn 'Could not find semantic_puppet gem, falling back to internal functionality. Version checks may be less robust.'
+end
 
 require 'metadata-json-lint/schema'
 require 'metadata-json-lint/version_requirement'
