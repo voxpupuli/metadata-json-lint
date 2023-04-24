@@ -1,5 +1,14 @@
 # Changelog
 
+## [3.0.3](https://github.com/voxpupuli/metadata-json-lint/tree/3.0.3) (2023-04-24)
+
+[Full Changelog](https://github.com/voxpupuli/metadata-json-lint/compare/3.0.2...3.0.3)
+
+**Merged pull requests:**
+
+- Allow json-schema 4.x [\#122](https://github.com/voxpupuli/metadata-json-lint/pull/122)
+- gemspec: drop deprecated date attribute [\#129](https://github.com/voxpupuli/metadata-json-lint/pull/129)
+
 ## [3.0.2](https://github.com/voxpupuli/metadata-json-lint/tree/3.0.2) (2022-05-03)
 
 [Full Changelog](https://github.com/voxpupuli/metadata-json-lint/compare/3.0.1...3.0.2)
