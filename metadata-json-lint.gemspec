@@ -17,7 +17,7 @@ Gem::Specification.new do |s|
   s.license     = 'Apache-2.0'
 
   s.required_ruby_version = '>= 2.1.0'
-  s.add_runtime_dependency 'json-schema', '>= 2.8', '< 4.0'
+  s.add_runtime_dependency 'json-schema', '>= 2.8', '< 5.0'
   s.add_runtime_dependency 'spdx-licenses', '~> 1.0'
   s.add_development_dependency 'pry'
   s.add_development_dependency 'rake'
