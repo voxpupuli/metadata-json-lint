@@ -1,9 +1,7 @@
 require 'json'
 require 'spdx-licenses'
 require 'optparse'
-
-require 'metadata-json-lint/semantic_puppet_loader'
-MetadataJsonLint::SemanticPuppetLoader.try_load
+require 'semantic_puppet'
 
 require 'metadata-json-lint/schema'
 require 'metadata-json-lint/version_requirement'
