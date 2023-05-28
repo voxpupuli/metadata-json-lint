@@ -15,7 +15,7 @@ module MetadataJsonLint
       :strict_license,
       :strict_dependencies,
       :strict_puppet_version,
-      :format
+      :format,
     ).new(
       true, # fail_on_warnings
       true, # strict_license
@@ -30,11 +30,13 @@ module MetadataJsonLint
     OptionParser.new do |opts|
       opts.banner = 'Usage: metadata-json-lint [options] [metadata.json]'
 
-      opts.on('--[no-]strict-dependencies', "Fail on open-ended module version dependencies. Defaults to '#{options[:strict_dependencies]}'.") do |v|
+      opts.on('--[no-]strict-dependencies',
+              "Fail on open-ended module version dependencies. Defaults to '#{options[:strict_dependencies]}'.") do |v|
         options[:strict_dependencies] = v
       end
 
-      opts.on('--[no-]strict-license', "Don't fail on strict license check. Defaults to '#{options[:strict_license]}'.") do |v|
+      opts.on('--[no-]strict-license',
+              "Don't fail on strict license check. Defaults to '#{options[:strict_license]}'.") do |v|
         options[:strict_license] = v
       end
 
@@ -42,11 +44,13 @@ module MetadataJsonLint
         options[:fail_on_warnings] = v
       end
 
-      opts.on('--[no-]strict-puppet-version', "Fail on strict Puppet Version check based on current supported Puppet versions. Defaults to '#{options[:strict_puppet_version]}'.") do |v|
+      opts.on('--[no-]strict-puppet-version',
+              "Fail on strict Puppet Version check based on current supported Puppet versions. Defaults to '#{options[:strict_puppet_version]}'.") do |v|
         options[:strict_puppet_version] = v
       end
 
-      opts.on('-f', '--format FORMAT', %i[text json], 'The format in which results will be output (text, json)') do |format|
+      opts.on('-f', '--format FORMAT', %i[text json],
+              'The format in which results will be output (text, json)') do |format|
         options[:format] = format
       end
     end.parse!
@@ -97,9 +101,7 @@ module MetadataJsonLint
     # From: https://docs.puppetlabs.com/puppet/latest/reference/modules_publishing.html#write-a-metadatajson-file
     deprecated_fields = %w[types checksum]
     deprecated_fields.each do |field|
-      unless parsed[field].nil?
-        error :deprecated_fields, "Deprecated field '#{field}' found in metadata.json."
-      end
+      error :deprecated_fields, "Deprecated field '#{field}' found in metadata.json." unless parsed[field].nil?
     end
 
     # The nested 'requirements' name of 'pe' is deprecated as well.
@@ -119,16 +121,14 @@ module MetadataJsonLint
 
       case options[:format]
       when :json
-        puts JSON.fast_generate(:result => result, :warnings => @warnings, :errors => @errors)
+        puts JSON.fast_generate(result: result, warnings: @warnings, errors: @errors)
       else
         @warnings.each { |warn| puts "(WARN) #{warn}" }
         @errors.each { |err| puts "(ERROR) #{err}" }
         puts result
       end
 
-      if !@errors.empty? || (!@warnings.empty? && (options[:fail_on_warnings] == true))
-        return false
-      end
+      return false if !@errors.empty? || (!@warnings.empty? && (options[:fail_on_warnings] == true))
     end
 
     true
@@ -151,9 +151,7 @@ module MetadataJsonLint
     return unless requirements.is_a?(Array)
 
     requirements.each do |requirement|
-      if requirement['name'] == 'pe'
-        warn :requirements, "The 'pe' requirement is no longer supported by the Forge."
-      end
+      warn :requirements, "The 'pe' requirement is no longer supported by the Forge." if requirement['name'] == 'pe'
 
       begin
         puppet_req = VersionRequirement.new(requirement.fetch('version_requirement', ''))
@@ -162,7 +160,7 @@ module MetadataJsonLint
         error :requirements, "Invalid 'version_requirement' field in metadata.json: #{e}"
       end
 
-      validate_puppet_ver!(puppet_req) unless puppet_req.instance_variable_get('@requirement').nil?
+      validate_puppet_ver!(puppet_req) unless puppet_req.instance_variable_get(:@requirement).nil?
     end
 
     validate_requirements_unique(requirements)
@@ -179,17 +177,16 @@ module MetadataJsonLint
     end
 
     return unless requirement.mixed_syntax?
+
     warn(:requirement, 'Mixing "x" or "*" version syntax with operators is not recommended in ' \
-      "metadata.json, use one style in the puppet version: #{requirement.instance_variable_get('@requirement')}")
+                       "metadata.json, use one style in the puppet version: #{requirement.instance_variable_get(:@requirement)}")
   end
   module_function :validate_puppet_ver!
 
   def validate_dependencies!(deps)
     dep_names = []
     deps.each do |dep|
-      if dep_names.include?(dep['name'])
-        warn :dependencies, "Duplicate dependencies on #{dep['name']}"
-      end
+      warn :dependencies, "Duplicate dependencies on #{dep['name']}" if dep_names.include?(dep['name'])
       dep_names << dep['name']
 
       begin
@@ -206,7 +203,7 @@ module MetadataJsonLint
       # See https://tickets.puppetlabs.com/browse/PUP-2781
       if dep.key?('version_range')
         warn :dependencies, "Dependency #{dep['name']} has a 'version_range' attribute " \
-          'which is no longer used by the forge.'
+                            'which is no longer used by the forge.'
       end
     end
   end
@@ -217,7 +214,7 @@ module MetadataJsonLint
     # From: https://docs.puppet.com/puppet/latest/reference/modules_metadata.html#best-practice-set-an-upper-bound-for-dependencies
     if options[:strict_dependencies] && requirement.open_ended?
       msg = "Dependency #{dep['name']} has an open " \
-        "ended dependency version requirement #{dep['version_requirement']}"
+            "ended dependency version requirement #{dep['version_requirement']}"
       warn(:dependencies, msg)
     end
 
@@ -225,15 +222,16 @@ module MetadataJsonLint
     # From: https://docs.puppet.com/puppet/latest/modules_metadata.html#version-specifiers
     # Supported in Puppet 5 and higher, but the syntax is unclear and incompatible with older versions
     return unless requirement.mixed_syntax?
+
     warn(:dependencies, 'Mixing "x" or "*" version syntax with operators is not recommended in ' \
-      "metadata.json, use one style in the #{dep['name']} dependency: #{dep['version_requirement']}")
+                        "metadata.json, use one style in the #{dep['name']} dependency: #{dep['version_requirement']}")
   end
   module_function :validate_version_requirement!
 
   def format_error(check, msg)
     case options[:format]
     when :json
-      { :check => check, :msg => msg }
+      { check: check, msg: msg }
     else
       "#{check}: #{msg}"
     end

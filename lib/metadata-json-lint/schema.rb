@@ -158,7 +158,8 @@ module MetadataJsonLint
           raise JSON::Schema::CustomFormatError, "must be a valid semantic version: #{e.message}"
         end
       elsif value.match(semver_full_regex).nil?
-        raise JSON::Schema::CustomFormatError, "must be a valid semantic version: Unable to parse '#{value}' as a semantic version identifier"
+        raise JSON::Schema::CustomFormatError,
+              "must be a valid semantic version: Unable to parse '#{value}' as a semantic version identifier"
       end
     end
   end

@@ -11,12 +11,13 @@ describe MetadataJsonLint do
     context 'with pe' do
       let :requirements do
         [
-          { 'name' => 'pe' }
+          { 'name' => 'pe' },
         ]
       end
 
       it do
-        expect(described_class).to receive('warn').with(:requirements, "The 'pe' requirement is no longer supported by the Forge.")
+        expect(described_class).to receive('warn').with(:requirements,
+                                                        "The 'pe' requirement is no longer supported by the Forge.")
         expect { described_class.validate_requirements!(requirements) }.not_to raise_error
       end
     end
@@ -24,12 +25,13 @@ describe MetadataJsonLint do
     context 'with invalid requirement' do
       let :requirements do
         [
-          { 'name' => 'puppet', 'version_requirement' => 'a' }
+          { 'name' => 'puppet', 'version_requirement' => 'a' },
         ]
       end
 
       it do
-        expect(described_class).to receive('error').with(:requirements, "Invalid 'version_requirement' field in metadata.json: Unparsable version range: \"a\"")
+        expect(described_class).to receive('error').with(:requirements,
+                                                         "Invalid 'version_requirement' field in metadata.json: Unparsable version range: \"a\"")
         expect { described_class.validate_requirements!(requirements) }.not_to raise_error
       end
     end
