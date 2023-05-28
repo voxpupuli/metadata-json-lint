@@ -35,6 +35,8 @@ jobs:
           - ruby: "3.2"
     env:
       COVERAGE: ${{ matrix.coverage }}
+      # https://github.com/rubygems/rubygems/issues/5234#issuecomment-1003773622
+      RUBYOPT: '--disable-did_you_mean'
     name: RSpec - Ruby ${{ matrix.ruby }}
     steps:
       - uses: actions/checkout@v3
