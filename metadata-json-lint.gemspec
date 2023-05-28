@@ -16,13 +16,12 @@ Gem::Specification.new do |s|
   s.required_ruby_version = '>= 2.5.0'
 
   s.add_runtime_dependency 'json-schema', '>= 2.8', '< 5.0'
-  s.add_runtime_dependency 'semantic_puppet'
+  s.add_runtime_dependency 'semantic_puppet', '~> 1.0'
   s.add_runtime_dependency 'spdx-licenses', '~> 1.0'
-  s.add_development_dependency 'rake'
-  s.add_development_dependency 'rspec'
+  s.add_development_dependency 'rake', '~> 13.0', '>= 13.0.6'
+  s.add_development_dependency 'rspec', '~> 3.12'
   s.add_development_dependency 'rubocop', '~> 1.28.0'
   s.add_development_dependency 'rubocop-performance', '~> 1.10'
   s.add_development_dependency 'rubocop-rake', '~> 0.2'
-  s.add_development_dependency 'rubocop-rspec', '>= 1.44'
-
+  s.add_development_dependency 'rubocop-rspec', '~> 2.10.0'
 end
