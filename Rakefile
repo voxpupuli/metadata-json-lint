@@ -1,15 +1,16 @@
 desc 'Run all tests'
-task :test => %i[rubocop spec test:acceptance]
+task :test => %i[spec test:acceptance]
 
-require 'rubocop/rake_task'
-RuboCop::RakeTask.new(:rubocop) do |task|
-  # These make the rubocop experience maybe slightly less terrible
-  task.options = ['-D', '-S', '-E']
-
-  # Use Rubocop's Github Actions formatter if possible
-  if ENV['GITHUB_ACTIONS'] == 'true'
-    rubocop_spec = Gem::Specification.find_by_name('rubocop')
-    if Gem::Version.new(rubocop_spec.version) >= Gem::Version.new('1.2')
+begin
+  require 'rubocop/rake_task'
+rescue LoadError
+  # RuboCop is an optional group
+else
+  RuboCop::RakeTask.new(:rubocop) do |task|
+    # These make the rubocop experience maybe slightly less terrible
+    task.options = ['--display-cop-names', '--display-style-guide', '--extra-details']
+    # Use Rubocop's Github Actions formatter if possible
+    if ENV['GITHUB_ACTIONS'] == 'true'
       task.formatters << 'github'
     end
   end
@@ -28,7 +29,8 @@ RSpec::Core::RakeTask.new(:spec)
 begin
   require 'rubygems'
   require 'github_changelog_generator/task'
-rescue LoadError # rubocop:disable Lint/HandleExceptions
+rescue LoadError
+  # github_changelog_generator is in the optional `release` group
 else
   GitHubChangelogGenerator::RakeTask.new :changelog do |config|
     config.exclude_labels = %w[duplicate question invalid wontfix wont-fix skip-changelog]

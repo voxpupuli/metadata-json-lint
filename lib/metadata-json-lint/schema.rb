@@ -4,8 +4,7 @@ module MetadataJsonLint
   # Provides validation of metadata.json against a JSON schema document
   # maintained in this class. Provides a good first pass over the metadata with
   # type checking and basic format/length validations.
-  #
-  # rubocop:disable Metrics/ClassLength # schema data structure is quite large
+  ## schema data structure is quite large
   class Schema
     # Based on https://docs.puppet.com/puppet/latest/modules_metadata.html
     #
@@ -164,4 +163,3 @@ module MetadataJsonLint
     end
   end
 end
-# rubocop:enable Metrics/ClassLength

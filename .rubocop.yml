@@ -1,35 +1,37 @@
+---
 inherit_from: .rubocop_todo.yml
 
-# we still support ruby 1.8
-Style/HashSyntax:
-  Enabled: false
+require:
+- rubocop-performance
+- rubocop-rake
+- rubocop-rspec
 
-#Metric cops are rarely useful
-Metrics/AbcSize:
-  Enabled: false
-
-Metrics/CyclomaticComplexity:
-  Enabled: false
-
-Metrics/LineLength:
-  Enabled: false
-
-Metrics/MethodLength:
-  Enabled: false
-
-Metrics/BlockLength:
+AllCops:
+  NewCops: enable
+  TargetRubyVersion: '2.5'
   Exclude:
-    - spec/**/*_spec.rb
-    - ./*.gemspec
-
-Metrics/PerceivedComplexity:
-  Enabled: false
-
-Metrics/ModuleLength:
-  Max: 185
+  - vendor/**/*
 
 Style/TrailingCommaInHashLiteral:
+  Enabled: True
   EnforcedStyleForMultiline: consistent_comma
 
-Style/AccessModifierDeclarations:
+Style/TrailingCommaInArrayLiteral:
+  Enabled: True
+  EnforcedStyleForMultiline: consistent_comma
+
+Style/TrailingCommaInArguments:
+  Enabled: True
+  EnforcedStyleForMultiline: comma
+
+Gemspec/RequireMFA:
+  Enabled: false
+
+Metrics:
+  Enabled: false
+
+Style:
+  Enabled: false
+
+Layout:
   Enabled: false
