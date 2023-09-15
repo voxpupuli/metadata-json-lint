@@ -31,7 +31,7 @@ rescue LoadError
   # github_changelog_generator is in the optional `release` group
 else
   GitHubChangelogGenerator::RakeTask.new :changelog do |config|
-    config.exclude_labels = %w[duplicate question invalid wontfix wont-fix skip-changelog]
+    config.exclude_labels = %w[duplicate question invalid wontfix wont-fix skip-changelog github_actions]
     config.user = 'voxpupuli'
     config.project = 'metadata-json-lint'
     gem_version = Gem::Specification.load("#{config.project}.gemspec").version

@@ -1,13 +1,38 @@
 # Changelog
 
+## [4.0.0](https://github.com/voxpupuli/metadata-json-lint/tree/4.0.0) (2023-09-15)
+
+[Full Changelog](https://github.com/voxpupuli/metadata-json-lint/compare/3.0.3...4.0.0)
+
+**Breaking changes:**
+
+- Drop Ruby 2.5/2.6 & switch to voxpupuli-rubocop [\#137](https://github.com/voxpupuli/metadata-json-lint/pull/137) ([bastelfreak](https://github.com/bastelfreak))
+- Drop Ruby =\< 2.4 support [\#125](https://github.com/voxpupuli/metadata-json-lint/pull/125) ([bastelfreak](https://github.com/bastelfreak))
+
+**Implemented enhancements:**
+
+- CI: Build gems with strictness and verbosity & Add upper version limits to gemspec [\#135](https://github.com/voxpupuli/metadata-json-lint/pull/135) ([bastelfreak](https://github.com/bastelfreak))
+- Add Ruby 3.1/3.2 support [\#133](https://github.com/voxpupuli/metadata-json-lint/pull/133) ([bastelfreak](https://github.com/bastelfreak))
+
+**Merged pull requests:**
+
+- Update voxpupuli-rubocop requirement from ~\> 1.2 to ~\> 2.0 [\#139](https://github.com/voxpupuli/metadata-json-lint/pull/139) ([dependabot[bot]](https://github.com/apps/dependabot))
+- Make semantic\_puppet a hard dependency [\#136](https://github.com/voxpupuli/metadata-json-lint/pull/136) ([bastelfreak](https://github.com/bastelfreak))
+- Drop pry development dependency [\#134](https://github.com/voxpupuli/metadata-json-lint/pull/134) ([bastelfreak](https://github.com/bastelfreak))
+- GCG: Add faraday-retry dep [\#132](https://github.com/voxpupuli/metadata-json-lint/pull/132) ([bastelfreak](https://github.com/bastelfreak))
+- Add dummy CI job we can depend on [\#131](https://github.com/voxpupuli/metadata-json-lint/pull/131) ([bastelfreak](https://github.com/bastelfreak))
+
 ## [3.0.3](https://github.com/voxpupuli/metadata-json-lint/tree/3.0.3) (2023-04-24)
 
 [Full Changelog](https://github.com/voxpupuli/metadata-json-lint/compare/3.0.2...3.0.3)
 
+**Fixed bugs:**
+
+- gemspec: drop deprecated `date` attribute [\#129](https://github.com/voxpupuli/metadata-json-lint/pull/129) ([bastelfreak](https://github.com/bastelfreak))
+
 **Merged pull requests:**
 
-- Allow json-schema 4.x [\#122](https://github.com/voxpupuli/metadata-json-lint/pull/122)
-- gemspec: drop deprecated date attribute [\#129](https://github.com/voxpupuli/metadata-json-lint/pull/129)
+- Allow json-schema 4.x [\#128](https://github.com/voxpupuli/metadata-json-lint/pull/128) ([chelnak](https://github.com/chelnak))
 
 ## [3.0.2](https://github.com/voxpupuli/metadata-json-lint/tree/3.0.2) (2022-05-03)
 
