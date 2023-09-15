@@ -92,7 +92,7 @@ module MetadataJsonLint
     # Validate basic structure against JSON schema
     schema_errors = Schema.new.validate(parsed)
     schema_errors.each do |err|
-      error (err[:field] == 'root' ? :required_fields : err[:field]), err[:message]
+      error ((err[:field] == 'root') ? :required_fields : err[:field]), err[:message]
     end
 
     validate_dependencies!(parsed['dependencies']) if parsed['dependencies']
