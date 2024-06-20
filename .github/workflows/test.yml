@@ -17,7 +17,7 @@ jobs:
       - name: Install Ruby ${{ matrix.ruby }}
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: "3.0"
+          ruby-version: "3.3"
           bundler-cache: true
       - name: Run Rubocop
         run: bundle exec rake rubocop
@@ -31,6 +31,7 @@ jobs:
           - ruby: "3.1"
             coverage: "yes"
           - ruby: "3.2"
+          - ruby: "3.3"
     env:
       COVERAGE: ${{ matrix.coverage }}
       # https://github.com/rubygems/rubygems/issues/5234#issuecomment-1003773622
