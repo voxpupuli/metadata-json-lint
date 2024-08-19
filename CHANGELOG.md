@@ -1,5 +1,14 @@
 # Changelog
 
+## [4.1.0](https://github.com/voxpupuli/metadata-json-lint/tree/4.1.0) (2024-08-19)
+
+[Full Changelog](https://github.com/voxpupuli/metadata-json-lint/compare/4.0.0...4.1.0)
+
+**Implemented enhancements:**
+
+- json-schema: Allow 5.x [\#145](https://github.com/voxpupuli/metadata-json-lint/pull/145) ([bastelfreak](https://github.com/bastelfreak))
+- Add Ruby 3.3 to CI [\#142](https://github.com/voxpupuli/metadata-json-lint/pull/142) ([bastelfreak](https://github.com/bastelfreak))
+
 ## [4.0.0](https://github.com/voxpupuli/metadata-json-lint/tree/4.0.0) (2023-09-15)
 
 [Full Changelog](https://github.com/voxpupuli/metadata-json-lint/compare/3.0.3...4.0.0)
