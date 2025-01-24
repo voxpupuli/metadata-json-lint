@@ -107,6 +107,9 @@ test "bad_license" $SUCCESS --no-fail-on-warnings
 test "invalid_escape_char" $FAILURE
 
 # Run a broken one, expect FAILURE
+test "missing_newline" $FAILURE
+
+# Run a broken one, expect FAILURE
 test "long_summary" $FAILURE
 
 # Run a broken one, expect FAILURE
