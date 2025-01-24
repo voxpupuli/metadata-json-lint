@@ -1,5 +1,22 @@
 # Changelog
 
+## [4.2.0](https://github.com/voxpupuli/metadata-json-lint/tree/4.2.0) (2025-01-24)
+
+[Full Changelog](https://github.com/voxpupuli/metadata-json-lint/compare/4.1.0...4.2.0)
+
+**Implemented enhancements:**
+
+- Fail if metadata.json has no proper newline [\#154](https://github.com/voxpupuli/metadata-json-lint/pull/154) ([bastelfreak](https://github.com/bastelfreak))
+- Fail on escape sequences in metadata.json [\#152](https://github.com/voxpupuli/metadata-json-lint/pull/152) ([bastelfreak](https://github.com/bastelfreak))
+- Rake: Use RuboCop tasks from voxpupuli-rubocop [\#150](https://github.com/voxpupuli/metadata-json-lint/pull/150) ([bastelfreak](https://github.com/bastelfreak))
+- Add Ruby 3.4 to CI [\#149](https://github.com/voxpupuli/metadata-json-lint/pull/149) ([bastelfreak](https://github.com/bastelfreak))
+
+**Merged pull requests:**
+
+- CI: Switch to voxpupuli/ruby-version [\#156](https://github.com/voxpupuli/metadata-json-lint/pull/156) ([bastelfreak](https://github.com/bastelfreak))
+- Drop code coverage in testing [\#153](https://github.com/voxpupuli/metadata-json-lint/pull/153) ([ekohl](https://github.com/ekohl))
+- Update voxpupuli-rubocop requirement from ~\> 2.8.0 to ~\> 3.0.0 [\#147](https://github.com/voxpupuli/metadata-json-lint/pull/147) ([dependabot[bot]](https://github.com/apps/dependabot))
+
 ## [4.1.0](https://github.com/voxpupuli/metadata-json-lint/tree/4.1.0) (2024-08-19)
 
 [Full Changelog](https://github.com/voxpupuli/metadata-json-lint/compare/4.0.0...4.1.0)
