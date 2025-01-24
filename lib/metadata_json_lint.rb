@@ -77,6 +77,11 @@ module MetadataJsonLint
   end
   module_function :contains_invalid_escape?
 
+  def misses_newline_at_end?(content)
+    content[-1] != "\n"
+  end
+  module_function :misses_newline_at_end?
+
   def parse(metadata)
     @errors = []
     @warnings = []
@@ -90,6 +95,8 @@ module MetadataJsonLint
     rescue Exception => e
       abort("Error: Unable to read metadata file: #{e.exception}")
     end
+
+    abort('Error: metadata.json does not have a valid newline at the end') if misses_newline_at_end?(f)
 
     abort('Error: Unable to parse metadata.json: Invalid escape character in string') if contains_invalid_escape?(f)
 
