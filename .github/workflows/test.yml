@@ -25,15 +25,14 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        include:
-          - ruby: "2.7"
-          - ruby: "3.0"
-          - ruby: "3.1"
-            coverage: "yes"
-          - ruby: "3.2"
-          - ruby: "3.3"
+        ruby:
+          - "2.7"
+          - "3.0"
+          - "3.1"
+          - "3.2"
+          - "3.3"
     env:
-      COVERAGE: ${{ matrix.coverage }}
+      COVERAGE: ${{ matrix.ruby == "3.1" && 'yes' }}
       # https://github.com/rubygems/rubygems/issues/5234#issuecomment-1003773622
       RUBYOPT: '--disable-did_you_mean'
     name: RSpec - Ruby ${{ matrix.ruby }}
