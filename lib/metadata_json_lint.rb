@@ -8,6 +8,9 @@ require 'metadata-json-lint/version_requirement'
 
 module MetadataJsonLint
   MIN_PUPPET_VER = '4.10.0'.freeze
+  # Regex looks for:
+  # 1. Invalid escape sequences (\x or incomplete \u)
+  INVALID_ESCAPE_REGEX = %r{\\[^"/bfnrtu]|\\u(?![0-9a-fA-F]{4})}.freeze
 
   def options
     @options ||= Struct.new(
@@ -69,6 +72,11 @@ module MetadataJsonLint
   end
   module_function :run
 
+  def contains_invalid_escape?(content)
+    content.match?(INVALID_ESCAPE_REGEX)
+  end
+  module_function :contains_invalid_escape?
+
   def parse(metadata)
     @errors = []
     @warnings = []
@@ -82,6 +90,8 @@ module MetadataJsonLint
     rescue Exception => e
       abort("Error: Unable to read metadata file: #{e.exception}")
     end
+
+    abort('Error: Unable to parse metadata.json: Invalid escape character in string') if contains_invalid_escape?(f)
 
     begin
       parsed = JSON.parse(f)

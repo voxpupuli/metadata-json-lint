@@ -1,0 +1,16 @@
+{
+  "name": "puppetlabs-postgresql",
+  "version": "3.4.1",
+  "author": "Inkling/Puppet Labs",
+  "summary": "A description with an invalid \( escape sequence",
+  "license": "Apache-2.0",
+  "source": "git://github.com/puppetlabs/puppet-postgresql.git",
+  "project_page": "https://github.com/puppetlabs/puppet-postgresql",
+  "issues_url": "https://github.com/puppetlabs/puppet-postgresql/issues",
+  "operatingsystem_support": [
+  ],
+  "requirements": [
+  ],
+  "dependencies": [
+  ]
+}
