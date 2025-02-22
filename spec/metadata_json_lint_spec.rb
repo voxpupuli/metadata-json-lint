@@ -8,6 +8,27 @@ describe MetadataJsonLint do
       it { expect { described_class.validate_requirements!(requirements) }.not_to raise_error }
     end
 
+    context 'with openvox' do
+      let :requirements do
+        [
+          { 'name' => 'openvox', 'version_requirement' => '>= 7.0.0 < 9.0.0' },
+        ]
+      end
+
+      it { expect { described_class.validate_requirements!(requirements) }.not_to raise_error }
+    end
+
+    context 'with openvox and puppet' do
+      let :requirements do
+        [
+          { 'name' => 'puppet', 'version_requirement' => '>= 6.0.0 < 8.0.0' },
+          { 'name' => 'openvox', 'version_requirement' => '>= 7.0.0 < 9.0.0' },
+        ]
+      end
+
+      it { expect { described_class.validate_requirements!(requirements) }.not_to raise_error }
+    end
+
     context 'with pe' do
       let :requirements do
         [
