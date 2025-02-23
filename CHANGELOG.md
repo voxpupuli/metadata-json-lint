@@ -1,5 +1,17 @@
 # Changelog
 
+## [4.2.1](https://github.com/voxpupuli/metadata-json-lint/tree/4.2.1) (2025-02-23)
+
+[Full Changelog](https://github.com/voxpupuli/metadata-json-lint/compare/4.2.0...4.2.1)
+
+**Fixed bugs:**
+
+- Update test for new json 2.10.0 release [\#159](https://github.com/voxpupuli/metadata-json-lint/pull/159) ([bastelfreak](https://github.com/bastelfreak))
+
+**Merged pull requests:**
+
+- Add test for openvox requirement [\#148](https://github.com/voxpupuli/metadata-json-lint/pull/148) ([bastelfreak](https://github.com/bastelfreak))
+
 ## [4.2.0](https://github.com/voxpupuli/metadata-json-lint/tree/4.2.0) (2025-01-24)
 
 [Full Changelog](https://github.com/voxpupuli/metadata-json-lint/compare/4.1.0...4.2.0)
