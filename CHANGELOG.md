@@ -1,5 +1,13 @@
 # Changelog
 
+## [4.3.0](https://github.com/voxpupuli/metadata-json-lint/tree/4.3.0) (2025-08-12)
+
+[Full Changelog](https://github.com/voxpupuli/metadata-json-lint/compare/4.2.1...4.3.0)
+
+**Implemented enhancements:**
+
+- json-schema: Allow 6.x [\#164](https://github.com/voxpupuli/metadata-json-lint/pull/164) ([bastelfreak](https://github.com/bastelfreak))
+
 ## [4.2.1](https://github.com/voxpupuli/metadata-json-lint/tree/4.2.1) (2025-02-23)
 
 [Full Changelog](https://github.com/voxpupuli/metadata-json-lint/compare/4.2.0...4.2.1)
@@ -27,7 +35,6 @@
 
 - CI: Switch to voxpupuli/ruby-version [\#156](https://github.com/voxpupuli/metadata-json-lint/pull/156) ([bastelfreak](https://github.com/bastelfreak))
 - Drop code coverage in testing [\#153](https://github.com/voxpupuli/metadata-json-lint/pull/153) ([ekohl](https://github.com/ekohl))
-- Update voxpupuli-rubocop requirement from ~\> 2.8.0 to ~\> 3.0.0 [\#147](https://github.com/voxpupuli/metadata-json-lint/pull/147) ([dependabot[bot]](https://github.com/apps/dependabot))
 
 ## [4.1.0](https://github.com/voxpupuli/metadata-json-lint/tree/4.1.0) (2024-08-19)
 
@@ -54,7 +61,6 @@
 
 **Merged pull requests:**
 
-- Update voxpupuli-rubocop requirement from ~\> 1.2 to ~\> 2.0 [\#139](https://github.com/voxpupuli/metadata-json-lint/pull/139) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Make semantic\_puppet a hard dependency [\#136](https://github.com/voxpupuli/metadata-json-lint/pull/136) ([bastelfreak](https://github.com/bastelfreak))
 - Drop pry development dependency [\#134](https://github.com/voxpupuli/metadata-json-lint/pull/134) ([bastelfreak](https://github.com/bastelfreak))
 - GCG: Add faraday-retry dep [\#132](https://github.com/voxpupuli/metadata-json-lint/pull/132) ([bastelfreak](https://github.com/bastelfreak))
@@ -76,10 +82,6 @@
 
 [Full Changelog](https://github.com/voxpupuli/metadata-json-lint/compare/3.0.1...3.0.2)
 
-**Merged pull requests:**
-
-- Update json-schema requirement from ~\> 2.8 to \>= 2.8, \< 4.0 [\#121](https://github.com/voxpupuli/metadata-json-lint/pull/121) ([dependabot[bot]](https://github.com/apps/dependabot))
-
 ## [3.0.1](https://github.com/voxpupuli/metadata-json-lint/tree/3.0.1) (2021-08-13)
 
 [Full Changelog](https://github.com/voxpupuli/metadata-json-lint/compare/3.0.0...3.0.1)
@@ -92,7 +94,6 @@
 
 **Merged pull requests:**
 
-- Update rubocop requirement from ~\> 0.50.0 to ~\> 0.57.2 [\#117](https://github.com/voxpupuli/metadata-json-lint/pull/117) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Add GitHub actions + badges [\#116](https://github.com/voxpupuli/metadata-json-lint/pull/116) ([bastelfreak](https://github.com/bastelfreak))
 
 ## [3.0.0](https://github.com/voxpupuli/metadata-json-lint/tree/3.0.0) (2020-11-24)
