@@ -1,5 +1,13 @@
 # Changelog
 
+## [5.0.0](https://github.com/voxpupuli/metadata-json-lint/tree/5.0.0) (2025-08-12)
+
+[Full Changelog](https://github.com/voxpupuli/metadata-json-lint/compare/4.3.0...5.0.0)
+
+**Breaking changes:**
+
+- Require Ruby 3.2 or newer [\#167](https://github.com/voxpupuli/metadata-json-lint/pull/167) ([bastelfreak](https://github.com/bastelfreak))
+
 ## [4.3.0](https://github.com/voxpupuli/metadata-json-lint/tree/4.3.0) (2025-08-12)
 
 [Full Changelog](https://github.com/voxpupuli/metadata-json-lint/compare/4.2.1...4.3.0)
