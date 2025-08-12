@@ -10,7 +10,7 @@ module MetadataJsonLint
   MIN_PUPPET_VER = '4.10.0'.freeze
   # Regex looks for:
   # 1. Invalid escape sequences (\x or incomplete \u)
-  INVALID_ESCAPE_REGEX = %r{\\[^"/bfnrtu]|\\u(?![0-9a-fA-F]{4})}.freeze
+  INVALID_ESCAPE_REGEX = %r{\\[^"/bfnrtu]|\\u(?![0-9a-fA-F]{4})}
 
   def options
     @options ||= Struct.new(

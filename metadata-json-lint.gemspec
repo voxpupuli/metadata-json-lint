@@ -12,12 +12,12 @@ Gem::Specification.new do |s|
   s.homepage    = 'https://github.com/voxpupuli/metadata-json-lint'
   s.license     = 'Apache-2.0'
 
-  s.required_ruby_version = '>= 2.7.0'
+  s.required_ruby_version = '>= 3.2.0'
 
   s.add_dependency 'json-schema', '>= 2.8', '< 7.0'
   s.add_dependency 'semantic_puppet', '~> 1.0'
   s.add_dependency 'spdx-licenses', '~> 1.0'
   s.add_development_dependency 'rake', '~> 13.0', '>= 13.0.6'
   s.add_development_dependency 'rspec', '~> 3.12'
-  s.add_development_dependency 'voxpupuli-rubocop', '~> 3.1.0'
+  s.add_development_dependency 'voxpupuli-rubocop', '~> 4.2.0'
 end
