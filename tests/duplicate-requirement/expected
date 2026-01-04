@@ -1,1 +1,1 @@
-Duplicate entries in the 'requirements' list with the name 'puppet'
+(ERROR) requirements: Duplicate entries in the 'requirements' list with the name 'puppet'
