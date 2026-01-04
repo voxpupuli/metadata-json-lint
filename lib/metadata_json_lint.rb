@@ -90,47 +90,54 @@ module MetadataJsonLint
     options = options().clone
     # Configuration from rake tasks
     yield options if block_given?
+    f = nil
     begin
       f = File.read(metadata)
     rescue Exception => e
-      abort("Error: Unable to read metadata file: #{e.exception}")
+      msg = e.message.split(' @ ').first
+      error(:file, "Unable to read metadata file: #{msg}")
     end
 
-    abort('Error: metadata.json does not have a valid newline at the end') if misses_newline_at_end?(f)
+    parsed = nil
+    if f
+      error(:file, 'metadata.json does not have a valid newline at the end') if misses_newline_at_end?(f)
 
-    abort('Error: Unable to parse metadata.json: Invalid escape character in string') if contains_invalid_escape?(f)
+      error(:file, 'Unable to parse metadata.json: Invalid escape character in string') if contains_invalid_escape?(f)
 
-    begin
-      parsed = JSON.parse(f)
-    rescue Exception => e
-      abort("Error: Unable to parse metadata.json: #{e.exception}")
+      begin
+        parsed = JSON.parse(f)
+      rescue Exception => e
+        error(:file, "Unable to parse metadata.json: #{e.exception}")
+      end
     end
 
-    # Validate basic structure against JSON schema
-    schema_errors = Schema.new.validate(parsed)
-    schema_errors.each do |err|
-      error ((err[:field] == 'root') ? :required_fields : err[:field]), err[:message]
-    end
+    if parsed
+      # Validate basic structure against JSON schema
+      schema_errors = Schema.new.validate(parsed)
+      schema_errors.each do |err|
+        error ((err[:field] == 'root') ? :required_fields : err[:field]), err[:message]
+      end
 
-    validate_dependencies!(parsed['dependencies']) if parsed['dependencies']
+      validate_dependencies!(parsed['dependencies']) if parsed['dependencies']
 
-    # Deprecated fields
-    # From: https://docs.puppetlabs.com/puppet/latest/reference/modules_publishing.html#write-a-metadatajson-file
-    deprecated_fields = %w[types checksum]
-    deprecated_fields.each do |field|
-      error :deprecated_fields, "Deprecated field '#{field}' found in metadata.json." unless parsed[field].nil?
-    end
+      # Deprecated fields
+      # From: https://docs.puppetlabs.com/puppet/latest/reference/modules_publishing.html#write-a-metadatajson-file
+      deprecated_fields = %w[types checksum]
+      deprecated_fields.each do |field|
+        error :deprecated_fields, "Deprecated field '#{field}' found in metadata.json." unless parsed[field].nil?
+      end
 
-    # The nested 'requirements' name of 'pe' is deprecated as well.
-    # https://groups.google.com/forum/?utm_medium=email&utm_source=footer#!msg/puppet-users/nkRPvG4q0Oo/GmXa109aJQAJ
-    validate_requirements!(parsed['requirements']) if parsed['requirements']
+      # The nested 'requirements' name of 'pe' is deprecated as well.
+      # https://groups.google.com/forum/?utm_medium=email&utm_source=footer#!msg/puppet-users/nkRPvG4q0Oo/GmXa109aJQAJ
+      validate_requirements!(parsed['requirements']) if parsed['requirements']
 
-    # Shoulds/recommendations
-    # From: https://docs.puppetlabs.com/puppet/latest/reference/modules_publishing.html#write-a-metadatajson-file
-    #
-    if options[:strict_license] && !parsed['license'].nil? && !SpdxLicenses.exist?(parsed['license']) && parsed['license'] != 'proprietary'
-      msg = "License identifier #{parsed['license']} is not in the SPDX list: http://spdx.org/licenses/"
-      warn(:license, msg)
+      # Shoulds/recommendations
+      # From: https://docs.puppetlabs.com/puppet/latest/reference/modules_publishing.html#write-a-metadatajson-file
+      #
+      if options[:strict_license] && !parsed['license'].nil? && !SpdxLicenses.exist?(parsed['license']) && parsed['license'] != 'proprietary'
+        msg = "License identifier #{parsed['license']} is not in the SPDX list: http://spdx.org/licenses/"
+        warn(:license, msg)
+      end
     end
 
     if !@errors.empty? || !@warnings.empty?

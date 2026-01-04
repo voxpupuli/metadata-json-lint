@@ -1,1 +1,3 @@
-Error: Unable to parse metadata.json: Invalid escape character in string
+(ERROR) file: Unable to parse metadata.json: Invalid escape character in string
+(ERROR) file: Unable to parse metadata.json:
+Errors found in
