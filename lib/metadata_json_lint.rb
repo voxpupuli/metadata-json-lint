@@ -90,47 +90,9 @@ module MetadataJsonLint
     options = options().clone
     # Configuration from rake tasks
     yield options if block_given?
-    begin
-      f = File.read(metadata)
-    rescue Exception => e
-      abort("Error: Unable to read metadata file: #{e.exception}")
-    end
 
-    abort('Error: metadata.json does not have a valid newline at the end') if misses_newline_at_end?(f)
-
-    abort('Error: Unable to parse metadata.json: Invalid escape character in string') if contains_invalid_escape?(f)
-
-    begin
-      parsed = JSON.parse(f)
-    rescue Exception => e
-      abort("Error: Unable to parse metadata.json: #{e.exception}")
-    end
-
-    # Validate basic structure against JSON schema
-    schema_errors = Schema.new.validate(parsed)
-    schema_errors.each do |err|
-      error ((err[:field] == 'root') ? :required_fields : err[:field]), err[:message]
-    end
-
-    validate_dependencies!(parsed['dependencies']) if parsed['dependencies']
-
-    # Deprecated fields
-    # From: https://docs.puppetlabs.com/puppet/latest/reference/modules_publishing.html#write-a-metadatajson-file
-    deprecated_fields = %w[types checksum]
-    deprecated_fields.each do |field|
-      error :deprecated_fields, "Deprecated field '#{field}' found in metadata.json." unless parsed[field].nil?
-    end
-
-    # The nested 'requirements' name of 'pe' is deprecated as well.
-    # https://groups.google.com/forum/?utm_medium=email&utm_source=footer#!msg/puppet-users/nkRPvG4q0Oo/GmXa109aJQAJ
-    validate_requirements!(parsed['requirements']) if parsed['requirements']
-
-    # Shoulds/recommendations
-    # From: https://docs.puppetlabs.com/puppet/latest/reference/modules_publishing.html#write-a-metadatajson-file
-    #
-    if options[:strict_license] && !parsed['license'].nil? && !SpdxLicenses.exist?(parsed['license']) && parsed['license'] != 'proprietary'
-      msg = "License identifier #{parsed['license']} is not in the SPDX list: http://spdx.org/licenses/"
-      warn(:license, msg)
+    validate_metadata(metadata, options) do |level, check, message|
+      send(level, check, message)
     end
 
     if !@errors.empty? || !@warnings.empty?
@@ -151,6 +113,57 @@ module MetadataJsonLint
     true
   end
   module_function :parse
+
+  def validate_metadata(metadata, options)
+    begin
+      f = File.read(metadata)
+    rescue StandardError => e
+      yield :error, :file, "Unable to read metadata file: #{e.message.split(' @ ').first}"
+      return
+    end
+
+    yield :error, :file, 'metadata.json does not have a valid newline at the end' if misses_newline_at_end?(f)
+
+    if contains_invalid_escape?(f)
+      yield :error, :file, 'Unable to parse metadata.json: Invalid escape character in string'
+      return
+    end
+
+    begin
+      parsed = JSON.parse(f)
+    rescue JSON::ParserError => e
+      yield :error, :file, "Unable to parse metadata.json: #{e.message}"
+      return
+    end
+
+    # Validate basic structure against JSON schema
+    schema_errors = Schema.new.validate(parsed)
+    schema_errors.each do |err|
+      yield :error, ((err[:field] == 'root') ? :required_fields : err[:field]), err[:message]
+    end
+
+    validate_dependencies!(parsed['dependencies']) if parsed['dependencies']
+
+    # Deprecated fields
+    # From: https://docs.puppetlabs.com/puppet/latest/reference/modules_publishing.html#write-a-metadatajson-file
+    deprecated_fields = %w[types checksum]
+    deprecated_fields.each do |field|
+      yield :error, :deprecated_fields, "Deprecated field '#{field}' found in metadata.json." unless parsed[field].nil?
+    end
+
+    # The nested 'requirements' name of 'pe' is deprecated as well.
+    # https://groups.google.com/forum/?utm_medium=email&utm_source=footer#!msg/puppet-users/nkRPvG4q0Oo/GmXa109aJQAJ
+    validate_requirements!(parsed['requirements']) if parsed['requirements']
+
+    # Shoulds/recommendations
+    # From: https://docs.puppetlabs.com/puppet/latest/reference/modules_publishing.html#write-a-metadatajson-file
+    #
+    return unless options[:strict_license] && !parsed['license'].nil? && !SpdxLicenses.exist?(parsed['license']) && parsed['license'] != 'proprietary'
+
+    msg = "License identifier #{parsed['license']} is not in the SPDX list: http://spdx.org/licenses/"
+    yield :warn, :license, msg
+  end
+  module_function :validate_metadata
 
   def validate_requirements_unique(requirements)
     names = requirements.map { |x| x['name'] }
