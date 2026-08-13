@@ -121,6 +121,7 @@ module MetadataJsonLint
     end
 
     def validate(data, options = {})
+      JSON::Validator.use_multi_json = false
       JSON::Validator.register_format_validator('semver', method(:semver_validator))
 
       JSON::Validator.fully_validate(schema, data, options.merge(errors_as_objects: true)).map do |error|
