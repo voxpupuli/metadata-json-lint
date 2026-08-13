@@ -1,5 +1,19 @@
 # Changelog
 
+## [5.1.0](https://github.com/voxpupuli/metadata-json-lint/tree/5.1.0) (2026-08-13)
+
+[Full Changelog](https://github.com/voxpupuli/metadata-json-lint/compare/5.0.0...5.1.0)
+
+**Implemented enhancements:**
+
+- Disable multi\_json deprecation warning [\#186](https://github.com/voxpupuli/metadata-json-lint/pull/186) ([bastelfreak](https://github.com/bastelfreak))
+- Parse whole file and print all errors [\#177](https://github.com/voxpupuli/metadata-json-lint/pull/177) ([bwitt](https://github.com/bwitt))
+- Add Ruby 4.0 support [\#176](https://github.com/voxpupuli/metadata-json-lint/pull/176) ([dependabot[bot]](https://github.com/apps/dependabot))
+
+**Closed issues:**
+
+- Post install message [\#90](https://github.com/voxpupuli/metadata-json-lint/issues/90)
+
 ## [5.0.0](https://github.com/voxpupuli/metadata-json-lint/tree/5.0.0) (2025-08-12)
 
 [Full Changelog](https://github.com/voxpupuli/metadata-json-lint/compare/4.3.0...5.0.0)
