@@ -48,6 +48,7 @@ module MetadataJsonLint
           'operatingsystem_support' => {
             'type' => 'array',
             'items' => {
+              'type' => 'object',
               'properties' => {
                 'operatingsystem' => {
                   'type' => 'string',
@@ -61,6 +62,7 @@ module MetadataJsonLint
               },
               'required' => %w[
                 operatingsystem
+                operatingsystemrelease
               ],
             },
           },
